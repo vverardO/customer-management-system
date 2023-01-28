@@ -12,3 +12,10 @@ php artisan key:generate
 php artisan migrate --seed
 php artisan serve
 ```
+
+Para rodar os testes basta executar o seguinte comando:
+
+```sh
+cd customer-management-system
+php artisan test
+```
