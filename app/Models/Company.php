@@ -18,7 +18,7 @@ class Company extends Model
         'name',
         'identificator',
     ];
-    
+
     protected $dates = [
         'created_at',
         'updated_at',
@@ -28,5 +28,10 @@ class Company extends Model
     public function users(): HasMany
     {
         return $this->hasMany(User::class);
+    }
+
+    public function customers(): HasMany
+    {
+        return $this->hasMany(Customer::class);
     }
 }
