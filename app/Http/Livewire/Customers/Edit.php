@@ -17,6 +17,7 @@ class Edit extends Component
 
     protected $messages = [
         'customer.name.required' => 'Necessário informar o nome',
+        'customer.name.max' => 'Tamanho excedido',
         'customer.general_record.required' => 'Necessário informar o RG',
         'customer.general_record.digits' => 'O RG precisa ter 10 digitos e ser numérico',
         'customer.registration_physical_person.required' => 'Necessário informar o CPF',

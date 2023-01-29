@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
+use Illuminate\Support\Str;
 
 class EditTest extends TestCase
 {
@@ -65,6 +66,29 @@ class EditTest extends TestCase
                 'customer.name' => 'required',
                 'customer.general_record' => 'required',
                 'customer.registration_physical_person' => 'required',
+            ]);
+    }
+
+    /** @test */
+    public function inputs_are_maximum_size()
+    {
+        $this->actingAs(User::factory()->create());
+
+        $customerName = Str::random(129);
+        $customerGeneralRecord = Str::random(11);
+        $customerRegistrationPhysicalPerson = Str::random(15);
+
+        $customer = Customer::factory()->create();
+
+        Livewire::test(Edit::class, [$customer->id])
+            ->set('customer.name', $customerName)
+            ->set('customer.general_record', $customerGeneralRecord)
+            ->set('customer.registration_physical_person', $customerRegistrationPhysicalPerson)
+            ->call('store')
+            ->assertHasErrors([
+                'customer.name' => 'max',
+                'customer.general_record' => 'digits',
+                'customer.registration_physical_person' => 'size',
             ]);
     }
 }

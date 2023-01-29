@@ -80,7 +80,7 @@ class IndexTest extends TestCase
     }
 
     /** @test */
-    public function search_for_description()
+    public function search_for_order_description()
     {
         $this->actingAs(User::factory()->create());
 

@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
+use Illuminate\Support\Str;
 
 class CreateTest extends TestCase
 {
@@ -60,6 +61,24 @@ class CreateTest extends TestCase
             ->assertHasErrors([
                 'order.title' => 'required',
                 'order.customer_id' => 'required',
+            ]);
+    }
+
+    /** @test */
+    public function inputs_are_maximum_size()
+    {
+        $this->actingAs(User::factory()->create());
+
+        $orderTitle = Str::random(129);
+        $orderDescription = Str::random(256);
+
+        Livewire::test(Create::class)
+            ->set('order.title', $orderTitle)
+            ->set('order.description', $orderDescription)
+            ->call('store')
+            ->assertHasErrors([
+                'order.title' => 'max',
+                'order.description' => 'max',
             ]);
     }
 }
