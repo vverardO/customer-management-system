@@ -2,25 +2,32 @@
 
 namespace App\Http\Livewire\Users;
 
+use App\Models\AccessRole;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
-class Profile extends Component
+class Edit extends Component
 {
     public User $user;
 
+    public $accessRoles;
+
     protected $rules = [
-        'user.name' => ['required'],
-        'user.email' => ['required'],
+        'user.name' => ['required', 'max:128'],
+        'user.email' => ['required', 'email'],
         'user.password' => ['sometimes'],
+        'user.access_role_id' => ['required'],
         'user.company.name' => ['sometimes'],
-        'user.access_role.title' => ['sometimes'],
     ];
 
     protected $messages = [
         'user.name.required' => 'Necessário informar o nome',
+        'user.name.max' => 'Tamanho excedido',
         'user.email.required' => 'Necessário informar o email',
+        'user.email.email' => 'Formato inválido',
+        'user.password.sometimes' => 'Necessário informar a senha',
+        'user.access_role_id.required' => 'Selecione o perfil de acesso',
     ];
 
     public function store()
@@ -36,24 +43,24 @@ class Profile extends Component
 
         $this->user->save();
 
-        $this->emit('alert', [
-            'type' => 'success',
-            'message' => 'Atualizado com sucesso!',
-        ]);
+        session()->flash('message', 'Atualizado com sucesso!');
+        session()->flash('type', 'success');
 
-        unset($this->user->password);
+        return redirect()->route('users.index');
     }
 
-    public function mount()
+    public function mount($id)
     {
+        $this->accessRoles = AccessRole::select(['title', 'id'])->get();
+
         $this->user = User::with([
             'accessRole',
             'company',
-        ])->find(auth()->user()->id)->makeHidden('password');
+        ])->find($id)->makeHidden('password');
     }
 
     public function render()
     {
-        return view('livewire.users.profile');
+        return view('livewire.users.edit');
     }
 }
