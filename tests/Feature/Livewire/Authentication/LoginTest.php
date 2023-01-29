@@ -30,12 +30,12 @@ class LoginTest extends TestCase
         ]);
 
         $company = Company::factory()->create([
-            'name' => 'companyname',
+            'name' => 'company name',
             'identificator' => '78.118.120/0001-85',
         ]);
 
         User::factory()->create([
-            'name' => 'username',
+            'name' => 'user name',
             'email' => 'user@name.com',
             'company_id' => $company->id,
             'access_role_id' => $accessRole->id,
@@ -78,12 +78,12 @@ class LoginTest extends TestCase
         ]);
 
         $company = Company::factory()->create([
-            'name' => 'companyname',
+            'name' => 'company name',
             'identificator' => '78.118.120/0001-85',
         ]);
 
         User::factory()->create([
-            'name' => 'username',
+            'name' => 'user name',
             'email' => 'user@name.com',
             'company_id' => $company->id,
             'access_role_id' => $accessRole->id,
