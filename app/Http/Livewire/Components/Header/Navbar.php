@@ -31,6 +31,12 @@ class Navbar extends Component
                 'route' => route('orders.index'),
                 'active' => request()->routeIs('orders.*') ? 'active' : '',
             ],
+            'services' => [
+                'title' => 'Serviços',
+                'icon' => 'fas fa-money-bill-wave',
+                'route' => route('services.index'),
+                'active' => request()->routeIs('services.*') ? 'active' : '',
+            ],
         ];
 
         if ($accessRoleTitle == 'Administrador') {
@@ -40,6 +46,8 @@ class Navbar extends Component
         } else {
             unset($this->menus['dashboard']);
             unset($this->menus['customers']);
+            unset($this->menus['orders']);
+            unset($this->menus['services']);
         }
     }
 

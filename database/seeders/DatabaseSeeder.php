@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
             ->hasUsers(5)
             ->hasCustomers(30)
             ->hasOrders(30)
+            ->hasServices(30)
             ->create();
     }
 }
