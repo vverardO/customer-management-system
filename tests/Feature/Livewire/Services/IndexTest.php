@@ -6,7 +6,6 @@ use App\Http\Livewire\Services\Index;
 use App\Models\Service;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Str;
 use Livewire\Livewire;
 use Tests\TestCase;
 
