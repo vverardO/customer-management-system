@@ -18,7 +18,7 @@ class Order extends Model
         'name',
         'identificator',
     ];
-    
+
     protected $dates = [
         'created_at',
         'updated_at',

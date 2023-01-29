@@ -6,9 +6,9 @@ use App\Http\Livewire\Customers\Edit;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Livewire\Livewire;
 use Tests\TestCase;
-use Illuminate\Support\Str;
 
 class EditTest extends TestCase
 {

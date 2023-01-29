@@ -6,10 +6,10 @@ use App\Http\Livewire\Companies\Edit as CompaniesEdit;
 use App\Http\Livewire\Customers\Create as CustomersCreate;
 use App\Http\Livewire\Customers\Edit as CustomersEdit;
 use App\Http\Livewire\Customers\Index as CustomersIndex;
+use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Orders\Create as OrdersCreate;
 use App\Http\Livewire\Orders\Edit as OrdersEdit;
 use App\Http\Livewire\Orders\Index as OrdersIndex;
-use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Users\Profile as UsersProfile;
 use Illuminate\Support\Facades\Route;
 

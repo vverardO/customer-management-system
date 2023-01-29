@@ -6,9 +6,9 @@ use App\Http\Livewire\Orders\Index;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Livewire\Livewire;
 use Tests\TestCase;
-use Illuminate\Support\Str;
 
 class IndexTest extends TestCase
 {
