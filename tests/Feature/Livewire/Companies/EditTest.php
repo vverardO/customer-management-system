@@ -34,9 +34,9 @@ class EditTest extends TestCase
             ->call('store')
             ->assertEmitted('alert', [
                 'type' => 'success',
-                'message' => 'Atualizado com sucesso!'
+                'message' => 'Atualizado com sucesso!',
             ]);
- 
+
         $this->assertTrue(
             Company::whereName('company name')
                 ->whereIdentificator('78.118.120/0001-85')

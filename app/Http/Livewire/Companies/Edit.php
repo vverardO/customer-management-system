@@ -27,7 +27,7 @@ class Edit extends Component
 
         $this->emit('alert', [
             'type' => 'success',
-            'message' => 'Atualizado com sucesso!'
+            'message' => 'Atualizado com sucesso!',
         ]);
     }
 

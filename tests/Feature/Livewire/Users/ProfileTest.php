@@ -34,9 +34,9 @@ class ProfileTest extends TestCase
             ->call('store')
             ->assertEmitted('alert', [
                 'type' => 'success',
-                'message' => 'Atualizado com sucesso!'
+                'message' => 'Atualizado com sucesso!',
             ]);
- 
+
         $this->assertTrue(
             User::whereName('user name')
                 ->whereEmail('user@name.com')
@@ -71,7 +71,7 @@ class ProfileTest extends TestCase
             ->call('store')
             ->assertEmitted('alert', [
                 'type' => 'success',
-                'message' => 'Atualizado com sucesso!'
+                'message' => 'Atualizado com sucesso!',
             ]);
     }
 }

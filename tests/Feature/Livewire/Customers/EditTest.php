@@ -40,7 +40,7 @@ class EditTest extends TestCase
             ->assertSessionHas('message', 'Atualizado com sucesso!')
             ->assertSessionHas('type', 'success')
             ->assertRedirect(route('customers.index'));
- 
+
         $this->assertTrue(
             Customer::whereName('customer name')
                 ->whereGeneralRecord('7289382761')

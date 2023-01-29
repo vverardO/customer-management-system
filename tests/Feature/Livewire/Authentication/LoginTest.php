@@ -26,7 +26,7 @@ class LoginTest extends TestCase
     public function the_user_can_login()
     {
         $accessRole = AccessRole::factory()->create([
-            'title' => 'title'
+            'title' => 'title',
         ]);
 
         $company = Company::factory()->create([
@@ -69,12 +69,12 @@ class LoginTest extends TestCase
                 'email' => 'exists',
             ]);
     }
-    
+
     /** @test */
     public function email_or_password_are_invalid()
     {
         $accessRole = AccessRole::factory()->create([
-            'title' => 'title'
+            'title' => 'title',
         ]);
 
         $company = Company::factory()->create([

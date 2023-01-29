@@ -29,7 +29,7 @@ class IndexTest extends TestCase
         $this->actingAs(User::factory()->create());
 
         Customer::factory()->count(2)->create([
-            'company_id' => auth()->user()->company_id
+            'company_id' => auth()->user()->company_id,
         ]);
 
         $firstCustomer = Customer::all()->first();
@@ -48,7 +48,7 @@ class IndexTest extends TestCase
         $this->actingAs(User::factory()->create());
 
         Customer::factory()->count(2)->create([
-            'company_id' => auth()->user()->company_id
+            'company_id' => auth()->user()->company_id,
         ]);
 
         $firstCustomer = Customer::all()->first();
@@ -67,7 +67,7 @@ class IndexTest extends TestCase
         $this->actingAs(User::factory()->create());
 
         Customer::factory()->count(2)->create([
-            'company_id' => auth()->user()->company_id
+            'company_id' => auth()->user()->company_id,
         ]);
 
         $firstCustomer = Customer::all()->first();
@@ -94,7 +94,7 @@ class IndexTest extends TestCase
                 $customer->id
             )->assertEmitted('alert', [
                 'type' => 'success',
-                'message' => 'Excluído com sucesso!'
+                'message' => 'Excluído com sucesso!',
             ]);
 
         $this->assertSoftDeleted($customer);
