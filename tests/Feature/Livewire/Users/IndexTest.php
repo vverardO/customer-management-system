@@ -3,7 +3,6 @@
 namespace Tests\Feature\Livewire\Users;
 
 use App\Http\Livewire\Users\Index;
-use App\Models\Order;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;

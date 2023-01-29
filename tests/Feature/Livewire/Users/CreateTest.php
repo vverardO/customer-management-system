@@ -5,7 +5,6 @@ namespace Tests\Feature\Livewire\Users;
 use App\Http\Livewire\Users\Create;
 use App\Models\AccessRole;
 use App\Models\Customer;
-use App\Models\Order;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
