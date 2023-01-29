@@ -6,6 +6,9 @@ use App\Http\Livewire\Companies\Edit as CompaniesEdit;
 use App\Http\Livewire\Customers\Create as CustomersCreate;
 use App\Http\Livewire\Customers\Edit as CustomersEdit;
 use App\Http\Livewire\Customers\Index as CustomersIndex;
+use App\Http\Livewire\Orders\Create as OrdersCreate;
+use App\Http\Livewire\Orders\Edit as OrdersEdit;
+use App\Http\Livewire\Orders\Index as OrdersIndex;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Users\Profile as UsersProfile;
 use Illuminate\Support\Facades\Route;
@@ -26,5 +29,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/', CustomersIndex::class)->name('customers.index');
         Route::get('/create', CustomersCreate::class)->name('customers.create');
         Route::get('/edit/{id}', CustomersEdit::class)->name('customers.edit');
+    });
+
+    Route::prefix('orders')->group(function () {
+        Route::get('/', OrdersIndex::class)->name('orders.index');
+        Route::get('/create', OrdersCreate::class)->name('orders.create');
+        Route::get('/edit/{id}', OrdersEdit::class)->name('orders.edit');
     });
 });

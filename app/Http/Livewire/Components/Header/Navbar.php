@@ -25,6 +25,12 @@ class Navbar extends Component
                 'route' => route('customers.index'),
                 'active' => request()->routeIs('customers.*') ? 'active' : '',
             ],
+            'orders' => [
+                'title' => 'Ordens',
+                'icon' => 'fas fa-boxes',
+                'route' => route('orders.index'),
+                'active' => request()->routeIs('orders.*') ? 'active' : '',
+            ],
         ];
 
         if ($accessRoleTitle == 'Administrador') {

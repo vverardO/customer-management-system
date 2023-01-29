@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
         Company::factory(3)
             ->hasUsers(5)
             ->hasCustomers(30)
+            ->hasOrders(30)
             ->create();
     }
 }
