@@ -44,6 +44,7 @@ class CreateTest extends TestCase
         $this->assertTrue(
             Customer::whereName('customer name')
                 ->whereGeneralRecord('7289382761')
+                ->whereCompanyId(auth()->user()->company_id)
                 ->whereRegistrationPhysicalPerson('950.425.060-20')
                 ->exists()
         );

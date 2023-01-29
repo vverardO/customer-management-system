@@ -31,10 +31,20 @@ class RegisterTest extends TestCase
             ->set('company_name', 'company name')
             ->set('company_identificator', '78.118.120/0001-85')
             ->call('register')
-            ->assertRedirect(route('dashboard'));
+            ->assertRedirect(route('dashboard')
+        );
  
-        $this->assertTrue(User::whereName('user name')->whereEmail('user@email.com')->exists());
-        $this->assertTrue(Company::whereName('company name')->whereIdentificator('78.118.120/0001-85')->exists());
+        $this->assertTrue(
+            User::whereName('user name')
+                ->whereEmail('user@email.com')
+                ->exists()
+        );
+
+        $this->assertTrue(
+            Company::whereName('company name')
+                ->whereIdentificator('78.118.120/0001-85')
+                ->exists()
+        );
     }
 
     /** @test */
