@@ -10,8 +10,8 @@ class Edit extends Component
     public Company $company;
 
     protected $rules = [
-        'company.name' => 'required',
-        'company.identificator' => 'required',
+        'company.name' => ['required'],
+        'company.identificator' => ['required'],
     ];
 
     protected $messages = [

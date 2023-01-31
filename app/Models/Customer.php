@@ -17,6 +17,7 @@ class Customer extends Model
         'name',
         'general_record',
         'registration_physical_person',
+        'company_id'
     ];
 
     protected $dates = [

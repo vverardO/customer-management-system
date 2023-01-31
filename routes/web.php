@@ -22,14 +22,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', Login::class)->name('login');
 Route::get('/register', Register::class)->name('register');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/', Dashboard::class)->name('dashboard');
 
     Route::get('/profile', UsersProfile::class)->name('profile');
-
-    Route::prefix('companies')->group(function () {
-        Route::get('/edit', CompaniesEdit::class)->name('companies.edit');
-    });
+    Route::get('/company', CompaniesEdit::class)->name('company');
 
     Route::prefix('customers')->group(function () {
         Route::get('/', CustomersIndex::class)->name('customers.index');

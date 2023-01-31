@@ -9,11 +9,11 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        Company::factory(3)
+        Company::factory()
             ->hasUsers(5)
-            ->hasCustomers(30)
-            ->hasOrders(30)
             ->hasServices(30)
+            ->hasCustomers(10)
+            ->hasOrders(15)
             ->create();
     }
 }

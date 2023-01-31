@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Traits\Timestamp;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,11 +13,14 @@ use Illuminate\Support\Str;
 class Order extends Model
 {
     use SoftDeletes;
+    use Timestamp;
     use HasFactory;
 
     protected $fillable = [
         'name',
         'identificator',
+        'company_id',
+        'customer_id',
     ];
 
     protected $dates = [

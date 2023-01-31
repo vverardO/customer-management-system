@@ -24,6 +24,11 @@ class AccessRole extends Model
         'updated_at',
     ];
 
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class);
+    }
+    
     public function scopeIsAdmin($query): Builder
     {
         return $query->where('title', 'Administrador');
@@ -32,10 +37,5 @@ class AccessRole extends Model
     public function scopeIsUser($query): Builder
     {
         return $query->where('title', 'Usuário');
-    }
-
-    public function users(): HasMany
-    {
-        return $this->hasMany(User::class);
     }
 }

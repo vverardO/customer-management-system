@@ -54,6 +54,7 @@ class Navbar extends Component
             unset($this->menus['customers']);
             unset($this->menus['orders']);
             unset($this->menus['services']);
+            unset($this->menus['users']);
         }
     }
 

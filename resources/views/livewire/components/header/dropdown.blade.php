@@ -7,7 +7,7 @@
             <i class='bx bx-user-circle text-muted font-size-18 align-middle me-1'></i>
             <span class="align-middle">Perfil</span>
         </a>
-        <a class="dropdown-item" href="{{route('companies.edit')}}">
+        <a class="dropdown-item" href="{{route('company')}}">
             <i class='bx bx-buildings text-muted font-size-18 align-middle me-1'></i>
             <span class="align-middle">Empresa</span>
         </a>

@@ -12,8 +12,8 @@ class Create extends Component
     public Service $service;
 
     protected $rules = [
-        'service.name' => 'required',
-        'value' => 'required',
+        'service.name' => ['required'],
+        'value' => ['required'],
     ];
 
     protected $messages = [
