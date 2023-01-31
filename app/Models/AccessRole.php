@@ -28,7 +28,7 @@ class AccessRole extends Model
     {
         return $this->hasMany(User::class);
     }
-    
+
     public function scopeIsAdmin($query): Builder
     {
         return $query->where('title', 'Administrador');
