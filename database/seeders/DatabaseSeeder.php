@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\AccessRole;
 use App\Models\Company;
-use App\Models\Customer;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -19,14 +18,14 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         Order::factory([
-                'customer_id' => $company->customers()->inRandomOrder()->first()->id
-            ])->count(15)
+            'customer_id' => $company->customers()->inRandomOrder()->first()->id,
+        ])->count(15)
             ->for($company)
             ->create();
 
         User::factory([
-                'access_role_id' => AccessRole::inRandomOrder()->first()->id
-            ])->count(5)
+            'access_role_id' => AccessRole::inRandomOrder()->first()->id,
+        ])->count(5)
             ->for($company)
             ->create();
     }
