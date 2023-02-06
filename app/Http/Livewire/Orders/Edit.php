@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Orders;
 
 use App\Models\Customer;
 use App\Models\Order;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Component;
 
 class Edit extends Component
@@ -41,7 +42,14 @@ class Edit extends Component
     {
         $this->customers = Customer::select(['name', 'id'])->get();
 
-        $this->order = Order::with(['customer'])->find($id);
+        try {
+            $this->order = Order::relatedToUserCompany()->with(['customer'])->findOrFail($id);
+        } catch (ModelNotFoundException $exception) {
+            session()->flash('message', 'Ordem inválido!');
+            session()->flash('type', 'warning');
+
+            return redirect()->route('orders.index');
+        }
     }
 
     public function render()

@@ -34,7 +34,7 @@ class Index extends Component
                     $query->orWhere('registration_physical_person', 'like', '%'.$this->search.'%');
                 });
             }
-        })->orderBy('name')->get();
+        })->relatedToUserCompany()->orderBy('name')->get();
 
         return view('livewire.customers.index', compact(['customers']));
     }

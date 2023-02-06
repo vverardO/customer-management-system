@@ -27,7 +27,7 @@ class CustomerFactory extends Factory
             'name' => fake()->unique()->name(),
             'general_record' => $document,
             'registration_physical_person' => "$one.$two.$three-$four",
-            'company_id' => Company::inRandomOrder()->first()->id,
+            'company_id' => Company::factory(),
         ];
     }
 }

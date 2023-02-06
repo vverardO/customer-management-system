@@ -12,7 +12,7 @@ class ServiceFactory extends Factory
         return [
             'name' => fake()->word(),
             'value' => fake()->randomFloat(2, 0, 1000),
-            'company_id' => Company::inRandomOrder()->first()->id,
+            'company_id' => Company::factory(),
         ];
     }
 }

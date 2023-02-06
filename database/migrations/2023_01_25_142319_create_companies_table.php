@@ -12,8 +12,8 @@ return new class() extends Migration
             $table->id();
             $table->string('name', 128);
             $table->string('identificator', 128);
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

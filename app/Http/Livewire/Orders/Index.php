@@ -35,7 +35,7 @@ class Index extends Component
                     $query->orWhereRelation('customer', 'name', 'like', '%'.$this->search.'%');
                 });
             }
-        })->orderByDesc('id')->get();
+        })->relatedToUserCompany()->orderByDesc('id')->get();
 
         return view('livewire.orders.index', compact(['orders']));
     }

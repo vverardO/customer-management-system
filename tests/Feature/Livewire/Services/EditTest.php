@@ -28,9 +28,11 @@ class EditTest extends TestCase
     /** @test */
     public function service_can_be_edited()
     {
-        $this->actingAs(User::factory()->create());
+        $user = User::factory()->create();
 
-        $service = Service::factory()->create();
+        $this->actingAs($user);
+
+        $service = Service::factory()->for($user->company)->create();
 
         Livewire::test(Edit::class, [$service->id])
             ->set('service.name', 'service name')
@@ -50,9 +52,11 @@ class EditTest extends TestCase
     /** @test */
     public function inputs_are_required()
     {
-        $this->actingAs(User::factory()->create());
+        $user = User::factory()->create();
 
-        $service = Service::factory()->create();
+        $this->actingAs($user);
+
+        $service = Service::factory()->for($user->company)->create();
 
         Livewire::test(Edit::class, [$service->id])
             ->set('service.name', '')

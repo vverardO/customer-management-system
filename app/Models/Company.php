@@ -30,6 +30,11 @@ class Company extends Model
         return $this->hasMany(User::class);
     }
 
+    public function services(): HasMany
+    {
+        return $this->hasMany(Service::class);
+    }
+
     public function customers(): HasMany
     {
         return $this->hasMany(Customer::class);
@@ -38,10 +43,5 @@ class Company extends Model
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
-    }
-
-    public function services(): HasMany
-    {
-        return $this->hasMany(Service::class);
     }
 }

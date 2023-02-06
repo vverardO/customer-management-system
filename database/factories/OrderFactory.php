@@ -14,8 +14,8 @@ class OrderFactory extends Factory
             'title' => fake()->word(),
             'description' => fake()->sentence(10),
             'total_value' => fake()->randomFloat(2, 0, 1000),
-            'company_id' => Company::inRandomOrder()->first()->id,
-            'customer_id' => Customer::inRandomOrder()->first()->id,
+            'company_id' => Company::factory(),
+            'customer_id' => Customer::factory(),
         ];
     }
 }

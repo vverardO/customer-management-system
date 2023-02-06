@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Customers;
 
 use App\Models\Customer;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Component;
 
 class Edit extends Component
@@ -38,7 +39,14 @@ class Edit extends Component
 
     public function mount($id)
     {
-        $this->customer = Customer::find($id);
+        try {
+            $this->customer = Customer::relatedToUserCompany()->findOrFail($id);
+        } catch (ModelNotFoundException $exception) {
+            session()->flash('message', 'Cliente inválido!');
+            session()->flash('type', 'warning');
+
+            return redirect()->route('customers.index');
+        }
     }
 
     public function render()

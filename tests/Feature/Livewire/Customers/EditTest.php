@@ -29,9 +29,11 @@ class EditTest extends TestCase
     /** @test */
     public function customer_can_be_edited()
     {
-        $this->actingAs(User::factory()->create());
+        $user = User::factory()->create();
 
-        $customer = Customer::factory()->create();
+        $this->actingAs($user);
+
+        $customer = Customer::factory()->for($user->company)->create();
 
         Livewire::test(Edit::class, [$customer->id])
             ->set('customer.name', 'customer name')
@@ -53,9 +55,11 @@ class EditTest extends TestCase
     /** @test */
     public function inputs_are_required()
     {
-        $this->actingAs(User::factory()->create());
+        $user = User::factory()->create();
 
-        $customer = Customer::factory()->create();
+        $this->actingAs($user);
+
+        $customer = Customer::factory()->for($user->company)->create();
 
         Livewire::test(Edit::class, [$customer->id])
             ->set('customer.name', '')
@@ -72,13 +76,15 @@ class EditTest extends TestCase
     /** @test */
     public function inputs_are_maximum_size()
     {
-        $this->actingAs(User::factory()->create());
+        $user = User::factory()->create();
+
+        $this->actingAs($user);
 
         $customerName = Str::random(129);
         $customerGeneralRecord = Str::random(11);
         $customerRegistrationPhysicalPerson = Str::random(15);
 
-        $customer = Customer::factory()->create();
+        $customer = Customer::factory()->for($user->company)->create();
 
         Livewire::test(Edit::class, [$customer->id])
             ->set('customer.name', $customerName)

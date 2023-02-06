@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Services;
 
 use App\Models\Service;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Component;
 
 class Edit extends Component
@@ -41,7 +42,14 @@ class Edit extends Component
 
     public function mount($id)
     {
-        $this->service = Service::find($id);
+        try {
+            $this->service = Service::relatedToUserCompany()->findOrFail($id);
+        } catch (ModelNotFoundException $exception) {
+            session()->flash('message', 'Usuário inválido!');
+            session()->flash('type', 'warning');
+
+            return redirect()->route('services.index');
+        }
 
         $this->value = $this->service->value;
     }

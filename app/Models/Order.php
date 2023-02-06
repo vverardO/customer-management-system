@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Traits\Timestamp;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -37,6 +38,11 @@ class Order extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function scopeRelatedToUserCompany(Builder $query): void
+    {
+        $query->where('company_id', auth()->user()->company_id);
     }
 
     protected function descriptionLimited(): Attribute

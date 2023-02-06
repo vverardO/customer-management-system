@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Users;
 
 use App\Models\AccessRole;
 use App\Models\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
@@ -53,10 +54,17 @@ class Edit extends Component
     {
         $this->accessRoles = AccessRole::select(['title', 'id'])->get();
 
-        $this->user = User::with([
-            'accessRole',
-            'company',
-        ])->find($id)->makeHidden('password');
+        try {
+            $this->user = User::with([
+                'accessRole',
+                'company',
+            ])->relatedToUserCompany()->findOrFail($id)->makeHidden('password');
+        } catch (ModelNotFoundException $exception) {
+            session()->flash('message', 'Usuário inválido!');
+            session()->flash('type', 'warning');
+
+            return redirect()->route('users.index');
+        }
     }
 
     public function render()

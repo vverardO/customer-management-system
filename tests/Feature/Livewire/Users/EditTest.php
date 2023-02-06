@@ -27,9 +27,11 @@ class EditTest extends TestCase
     /** @test */
     public function user_can_edit_his_profile()
     {
-        $this->actingAs(User::factory()->create());
-
         $user = User::factory()->create();
+
+        $this->actingAs($user);
+
+        $user = User::factory()->for($user->company)->create();
 
         Livewire::test(Edit::class, [$user->id])
             ->set('user.name', 'user name')
@@ -50,9 +52,11 @@ class EditTest extends TestCase
     /** @test */
     public function name_and_email_are_required()
     {
-        $this->actingAs(User::factory()->create());
-
         $user = User::factory()->create();
+
+        $this->actingAs($user);
+
+        $user = User::factory()->for($user->company)->create();
 
         Livewire::test(Edit::class, [$user->id])
             ->set('user.name', '')
@@ -67,11 +71,13 @@ class EditTest extends TestCase
     /** @test */
     public function user_can_change_his_password()
     {
-        $this->actingAs(User::factory()->create());
+        $user = User::factory()->create();
+
+        $this->actingAs($user);
 
         $password = '123!@#qweQWE'; // random password
 
-        $user = User::factory()->create();
+        $user = User::factory()->for($user->company)->create();
 
         Livewire::test(Edit::class, [$user->id])
             ->set('user.password', $password)

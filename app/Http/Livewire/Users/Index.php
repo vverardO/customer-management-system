@@ -58,7 +58,7 @@ class Index extends Component
                     $query->orWhereRelation('accessRole', 'title', 'like', '%'.$this->search.'%');
                 });
             }
-        })->orderBy('name')->get();
+        })->relatedToUserCompany()->orderBy('name')->get();
 
         return view('livewire.users.index', compact(['users']));
     }

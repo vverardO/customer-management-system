@@ -33,7 +33,7 @@ class Index extends Component
                     $query->orWhere('value', 'like', '%'.$this->search.'%');
                 });
             }
-        })->orderBy('name')->get();
+        })->relatedToUserCompany()->orderBy('name')->get();
 
         return view('livewire.services.index', compact(['services']));
     }
