@@ -10,6 +10,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->integer('number');
             $table->string('title', 128);
             $table->string('description')->nullable();
             $table->decimal('total_value', 10);

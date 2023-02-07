@@ -18,8 +18,10 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'identificator',
+        'title',
+        'number',
+        'description',
+        'total_value',
         'company_id',
         'customer_id',
     ];

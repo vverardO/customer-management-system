@@ -39,7 +39,7 @@
                     <tbody>
                         @forelse($orders as $order)
                         <tr>
-                            <td>{{$order->id}}</td>
+                            <td>{{$order->number}}</td>
                             <td>{{$order->title}}</td>
                             <td>{{$order->customer->name}}</td>
                             <td>{{$order->description_limited}}</td>

@@ -1,5 +1,5 @@
 @section('head.title', 'Ordens | Atualizar')
-@section('page.title', "Atualização da Ordem nº{$order->id}")
+@section('page.title', "Atualização da Ordem nº {$order->number}")
 
 <div class="row">
     <div class="card">

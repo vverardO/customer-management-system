@@ -32,6 +32,9 @@ class Create extends Component
         $this->order->company_id = auth()->user()->company_id;
         $this->order->total_value = 100.00;
 
+        $ordersQuantity = Order::relatedToUserCompany()->count();
+        $this->order->number = ++ $ordersQuantity;
+
         $this->order->save();
 
         session()->flash('message', 'Cadastrado com sucesso!');
