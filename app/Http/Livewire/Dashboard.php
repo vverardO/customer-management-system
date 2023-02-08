@@ -22,7 +22,7 @@ class Dashboard extends Component
         $lastWeekEndAt = Carbon::now()->endOfWeek();
 
         $this->weekCustomers = DB::table('customers')->whereBetween('created_at', [$lastWeekStartAt, $lastWeekEndAt])->count();
-        
+
         $this->monthCustomers = DB::table('customers')->whereMonth('created_at', '=', now()->format('m'))->count();
 
         $this->weekOrders = DB::table('orders')->whereBetween('created_at', [$lastWeekStartAt, $lastWeekEndAt])->count();
