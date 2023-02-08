@@ -82,7 +82,7 @@ class Edit extends Component
     public function removeService(int $index)
     {
         unset($this->orderServices[$index]);
-    
+
         $this->refresh();
     }
 
@@ -131,7 +131,7 @@ class Edit extends Component
                     $query->orWhere('value', $this->search);
                 });
             })->relatedToUserCompany()->orderByDesc('created_at')->limit(5)->get();
-        } 
+        }
 
         return view('livewire.orders.edit', compact('services'));
     }

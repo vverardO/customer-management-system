@@ -40,7 +40,7 @@ class Create extends Component
         $this->validate();
 
         $ordersQuantity = Order::relatedToUserCompany()->count();
-        $this->order->number = ++ $ordersQuantity;
+        $this->order->number = ++$ordersQuantity;
         $this->order->company_id = auth()->user()->company_id;
 
         if (str_contains($this->total_value, ',')) {
@@ -85,7 +85,7 @@ class Create extends Component
     public function removeService(int $index)
     {
         unset($this->orderServices[$index]);
-    
+
         $this->refresh();
     }
 
@@ -116,7 +116,7 @@ class Create extends Component
                     $query->orWhere('value', $this->search);
                 });
             })->relatedToUserCompany()->orderByDesc('created_at')->limit(5)->get();
-        } 
+        }
 
         return view('livewire.orders.create', compact('services'));
     }

@@ -47,7 +47,7 @@ class Service extends Model
     protected function valueFormatted(): Attribute
     {
         return Attribute::make(
-            get: fn () => "R$ ".number_format($this->value, 2, ',', '.'),
+            get: fn () => 'R$ '.number_format($this->value, 2, ',', '.'),
         );
     }
 }

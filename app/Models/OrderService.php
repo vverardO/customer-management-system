@@ -1,11 +1,11 @@
 <?php
- 
+
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
-use Illuminate\Database\Eloquent\Casts\Attribute;
- 
+
 class OrderService extends Pivot
 {
     protected $fillable = [
@@ -25,7 +25,7 @@ class OrderService extends Pivot
     protected function valueFormatted(): Attribute
     {
         return Attribute::make(
-            get: fn () => "R$ ".number_format($this->value, 2, ',', '.'),
+            get: fn () => 'R$ '.number_format($this->value, 2, ',', '.'),
         );
     }
 }

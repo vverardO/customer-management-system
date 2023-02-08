@@ -24,13 +24,13 @@ class DatabaseSeeder extends Seeder
             ->take(5)
             ->each(function ($customer) use ($company) {
                 Order::factory()
-                    ->count(random_int(1,3))
+                    ->count(random_int(1, 3))
                     ->for($company)
                     ->for($customer)
                     ->create()
                     ->each(function ($order) {
                         $totalValue = 0;
-                        $quantity = random_int(1,5);
+                        $quantity = random_int(1, 5);
                         Service::inRandomOrder()->take($quantity)->get()->each(function ($service) use ($order, &$totalValue) {
                             $totalValue += $service->value;
                             $order->services()->attach($service, ['value' => $service->value]);
@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
 
                         $order->update(['total_value' => $totalValue]);
                     });
-        });
+            });
 
         User::factory([
             'access_role_id' => AccessRole::inRandomOrder()->first()->id,
