@@ -3,12 +3,15 @@
 namespace Database\Factories;
 
 use App\Models\Company;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CustomerFactory extends Factory
 {
     public function definition(): array
     {
+        $createdAndUpdatedAt = Carbon::today()->subDays(rand(0, 40));
+
         [
             $one,
             $two,
@@ -28,6 +31,8 @@ class CustomerFactory extends Factory
             'general_record' => $document,
             'registration_physical_person' => "$one.$two.$three-$four",
             'company_id' => Company::factory(),
+            'created_at' => $createdAndUpdatedAt,
+            'updated_at' => $createdAndUpdatedAt,
         ];
     }
 }
