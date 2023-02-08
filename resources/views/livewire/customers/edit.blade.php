@@ -1,7 +1,7 @@
 @section('head.title', 'Clientes | Cadastrar')
 @section('page.title', 'Cadastrar um Cliente')
 
-<div class="row">
+<div class="col-lg-12">
     <div class="card">
         <div class="card-body">
             <form wire:submit.prevent="store">

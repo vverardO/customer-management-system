@@ -26,7 +26,7 @@ class Index extends Component
 
     public function render()
     {
-        $orders = Order::with(['customer'])->where(function (Builder $builder) {
+        $orders = Order::with(['customer'])->withCount('services')->where(function (Builder $builder) {
             if ($this->search) {
                 $builder->where(function (Builder $query) {
                     $query->where('title', 'like', '%'.$this->search.'%');

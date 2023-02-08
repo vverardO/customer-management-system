@@ -1,7 +1,7 @@
 @section('head.title', 'Perfil')
 @section('page.title', "Perfil do usuário {$user->name}")
 
-<div class="row">
+<div class="col-lg-12">
     <div class="card">
         <div class="card-body">
             <form wire:submit.prevent="store">

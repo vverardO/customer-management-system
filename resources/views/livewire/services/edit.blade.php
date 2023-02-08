@@ -1,7 +1,7 @@
 @section('head.title', 'Serviços | Atualizar')
 @section('page.title', "Atualização do Serviço {$service->name}")
 
-<div class="row">
+<div class="col-lg-12">
     <div class="card">
         <div class="card-body">
             <form wire:submit.prevent="store">

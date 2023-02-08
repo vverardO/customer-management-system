@@ -12,7 +12,7 @@ class OrderFactory extends Factory
     {
         return [
             'title' => fake()->word(),
-            'number' => fake()->unique()->randomNumber(2),
+            'number' => fake()->unique()->randomNumber(3),
             'description' => fake()->sentence(10),
             'total_value' => fake()->randomFloat(2, 0, 1000),
             'company_id' => Company::factory(),

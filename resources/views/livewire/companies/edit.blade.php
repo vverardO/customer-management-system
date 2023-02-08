@@ -1,7 +1,7 @@
 @section('head.title', 'Empresa')
 @section('page.title', "Atualização da Empresa {$company->name}")
 
-<div class="row">
+<div class="col-lg-12">
     <div class="card">
         <div class="card-body">
             <form wire:submit.prevent="store">

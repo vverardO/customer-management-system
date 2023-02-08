@@ -12,12 +12,13 @@ class Create extends Component
     public Service $service;
 
     protected $rules = [
-        'service.name' => ['required'],
+        'service.name' => ['required', 'min:3'],
         'value' => ['required'],
     ];
 
     protected $messages = [
         'service.name.required' => 'Insira o nome',
+        'service.name.min' => 'Mínimo 3 letras',
         'value.required' => 'Insira o valor',
     ];
 

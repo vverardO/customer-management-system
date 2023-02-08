@@ -1,7 +1,7 @@
 @section('head.title', 'Ordens | Atualizar')
 @section('page.title', "Atualização da Ordem nº {$order->number}")
 
-<div class="row">
+<div class="col-lg-12">
     <div class="card">
         <div class="card-body">
             <form wire:submit.prevent="store">
@@ -43,6 +43,17 @@
                         @enderror
                     </div>
                 </div>
+                <div class="mb-3 row">
+                    <label class="col-md-2 col-form-label @error('total_value') is-invalid @enderror">Valor total (R$)</label>
+                    <div class="col-md-10">
+                        <input class="form-control @error('total_value') is-invalid @enderror" readonly id="currency-mask" placeholder="100,00" wire:model="total_value">
+                        @error('total_value')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
                 <div class="row text-center mt-4">
                     <div class="col-sm-12">
                         <button type="submit" class="btn btn-primary w-md">Atualizar</button>
@@ -52,4 +63,98 @@
             </form>
         </div>
     </div>
+    <div class="row align-items-start">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <input class="form-control" placeholder="Digite ao menos três letras do nome do serviço" wire:model="search">
+                </div>
+                <div class="card-body">
+                    <table class="table align-middle table-nowrap table-responsive" id="services-table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Valor</th>
+                                <th style="width: 100px;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($services as $service)
+                            <tr>
+                                <td>{{$service['name']}}</td>
+                                <td>{{$service['value_formatted']}}</td>
+                                <td style="text-align: center;">
+                                    <a type="button" rel="tooltip" class="text-primary">
+                                        <i class="fas fa-plus" wire:click="addService({{$service->id}})"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="3" align="center">Nenhuma informação a ser apresentada</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Serviços Selecionados</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table align-middle table-nowrap" id="order-services-table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Valor</th>
+                                <th style="width: 100px;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @forelse($orderServices as $index => $service)
+                            <tr>
+                                <td>{{$service['name']}}</td>
+                                <td>{{$service['value_formatted']}}</td>
+                                <td style="text-align: center;">
+                                    <a type="button" rel="tooltip" class="text-danger">
+                                        <i class="fas fa-times" wire:click="removeService({{$index}})"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="3" align="center">Nenhuma informação a ser apresentada</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section('script')
+<script src="/assets/libs/imask/imask.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Pattern (Phone)
+        var currencyMask = IMask(document.getElementById('currency-mask'), {
+            mask: 'num',
+            blocks: {
+            num: {
+                    scale: 2,
+                    mask: Number,
+                    normalizeZeros: false,
+                    thousandsSeparator: '.'
+                }
+            }
+        });
+    });
+</script>
+@endsection
