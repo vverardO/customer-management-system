@@ -46,7 +46,7 @@ class Navbar extends Component
                         'route' => route('products.index'),
                         'active' => request()->routeIs('products.*') ? 'active' : '',
                     ],
-                ]
+                ],
             ],
             'users' => [
                 'title' => 'Usuários',
@@ -72,7 +72,7 @@ class Navbar extends Component
     public function render()
     {
         return view('livewire.components.header.navbar', [
-            'menus' => $this->menus
+            'menus' => $this->menus,
         ]);
     }
 }
