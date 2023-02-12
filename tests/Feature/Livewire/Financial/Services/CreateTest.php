@@ -2,8 +2,9 @@
 
 namespace Tests\Feature\Livewire\Financial\Services;
 
+use App\Enums\ItemType;
 use App\Http\Livewire\Financial\Services\Create;
-use App\Models\Service;
+use App\Models\Item;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -37,7 +38,8 @@ class CreateTest extends TestCase
             ->assertRedirect(route('services.index'));
 
         $this->assertTrue(
-            Service::whereName('service name')
+            Item::whereName('service name')
+                ->where('type', ItemType::Service)
                 ->whereValue(12.00)
                 ->exists()
         );

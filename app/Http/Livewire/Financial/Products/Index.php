@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Financial\Products;
 
+use App\Models\Item;
 use App\Models\Product;
 use App\Traits\Destroyable;
 use App\Traits\Showable;
@@ -26,7 +27,7 @@ class Index extends Component
 
     public function render()
     {
-        $products = Product::where(function (Builder $builder) {
+        $products = Item::isProduct()->where(function (Builder $builder) {
             if ($this->search) {
                 $builder->where(function (Builder $query) {
                     $query->where('name', 'like', '%'.$this->search.'%');

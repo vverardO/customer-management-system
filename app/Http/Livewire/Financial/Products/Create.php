@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire\Financial\Products;
 
-use App\Models\Product;
+use App\Enums\ItemType;
+use App\Models\Item;
 use Livewire\Component;
 
 class Create extends Component
 {
     public $value;
 
-    public Product $product;
+    public Item $product;
 
     protected $rules = [
         'product.name' => ['required', 'min:3'],
@@ -27,6 +28,7 @@ class Create extends Component
         $this->validate();
 
         $this->product->company_id = auth()->user()->company_id;
+        $this->product->type = ItemType::Product;
         $this->product->value = str_replace(',', '.', str_replace('.', '', $this->value));
 
         $this->product->save();
@@ -39,7 +41,7 @@ class Create extends Component
 
     public function mount()
     {
-        $this->product = new Product();
+        $this->product = new Item();
     }
 
     public function render()

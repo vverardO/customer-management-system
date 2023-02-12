@@ -26,17 +26,19 @@ class Index extends Component
 
     public function render()
     {
-        $orders = Order::with(['customer'])->withCount('services')->where(function (Builder $builder) {
-            if ($this->search) {
-                $builder->where(function (Builder $query) {
-                    $query->where('title', 'like', '%'.$this->search.'%');
-                    $query->orWhere('id', $this->search);
-                    $query->orWhere('number', $this->search);
-                    $query->orWhere('description', 'like', '%'.$this->search.'%');
-                    $query->orWhereRelation('customer', 'name', 'like', '%'.$this->search.'%');
-                });
-            }
-        })->relatedToUserCompany()->orderByDesc('created_at')->get();
+        $orders = Order::with(['customer'])
+            ->withCount(['services', 'products'])
+            ->where(function (Builder $builder) {
+                if ($this->search) {
+                    $builder->where(function (Builder $query) {
+                        $query->where('title', 'like', '%'.$this->search.'%');
+                        $query->orWhere('id', $this->search);
+                        $query->orWhere('number', $this->search);
+                        $query->orWhere('description', 'like', '%'.$this->search.'%');
+                        $query->orWhereRelation('customer', 'name', 'like', '%'.$this->search.'%');
+                    });
+                }
+            })->relatedToUserCompany()->orderByDesc('created_at')->get();
 
         return view('livewire.orders.index', compact(['orders']));
     }

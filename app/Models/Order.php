@@ -45,7 +45,25 @@ class Order extends Model
 
     public function services(): BelongsToMany
     {
-        return $this->belongsToMany(Service::class)->withPivot(['value'])->using(OrderService::class);
+        return $this->belongsToMany(Item::class)
+            ->isService()
+            ->withPivot(['value'])
+            ->using(ItemOrder::class);
+    }
+
+    public function products(): BelongsToMany
+    {
+        return $this->belongsToMany(Item::class)
+            ->isProduct()
+            ->withPivot(['value'])
+            ->using(ItemOrder::class);
+    }
+
+    public function items(): BelongsToMany
+    {
+        return $this->belongsToMany(Item::class)
+            ->withPivot(['value'])
+            ->using(ItemOrder::class);
     }
 
     public function scopeRelatedToUserCompany(Builder $query): void

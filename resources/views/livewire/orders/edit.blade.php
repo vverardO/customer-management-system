@@ -70,28 +70,30 @@
                     <input class="form-control" placeholder="Digite ao menos três letras do nome do serviço" wire:model="search">
                 </div>
                 <div class="card-body">
-                    <table class="table align-middle table-nowrap table-responsive" id="services-table">
+                    <table class="table align-middle table-nowrap table-responsive" id="items-table">
                         <thead>
                             <tr>
                                 <th>Nome</th>
                                 <th>Valor</th>
+                                <th>Tipo</th>
                                 <th style="width: 100px;">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($services as $service)
+                            @forelse($items as $item)
                             <tr>
-                                <td>{{$service['name']}}</td>
-                                <td>{{$service['value_formatted']}}</td>
+                                <td>{{$item['name']}}</td>
+                                <td>{{$item['value_formatted']}}</td>
+                                <td>{{$item['type_formatted']}}</td>
                                 <td style="text-align: center;">
                                     <a type="button" rel="tooltip" class="text-primary">
-                                        <i class="fas fa-plus" wire:click="addService({{$service->id}})"></i>
+                                        <i class="fas fa-plus" wire:click="addItem({{$item->id}})"></i>
                                     </a>
                                 </td>
                             </tr>
                             @empty
                                 <tr>
-                                    <td colspan="3" align="center">Nenhuma informação a ser apresentada</td>
+                                    <td colspan="4" align="center">Nenhuma informação a ser apresentada</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -103,25 +105,27 @@
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Serviços Selecionados</h5>
+                    <h5 class="card-title mb-0">Produtos e Serviços Selecionados</h5>
                 </div>
                 <div class="card-body">
-                    <table class="table align-middle table-nowrap" id="order-services-table">
+                    <table class="table align-middle table-nowrap" id="order-items-table">
                         <thead>
                             <tr>
                                 <th>Nome</th>
                                 <th>Valor</th>
+                                <th>Tipo</th>
                                 <th style="width: 100px;">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                        @forelse($orderServices as $index => $service)
+                        @forelse($orderItems as $index => $item)
                             <tr>
-                                <td>{{$service['name']}}</td>
-                                <td>{{$service['value_formatted']}}</td>
+                                <td>{{$item['name']}}</td>
+                                <td>{{$item['value_formatted']}}</td>
+                                <td>{{$item['type_formatted']}}</td>
                                 <td style="text-align: center;">
                                     <a type="button" rel="tooltip" class="text-danger">
-                                        <i class="fas fa-times" wire:click="removeService({{$index}})"></i>
+                                        <i class="fas fa-times" wire:click="removeItem({{$index}})"></i>
                                     </a>
                                 </td>
                             </tr>

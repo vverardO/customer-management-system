@@ -33,6 +33,7 @@
                             <th title="Apresentação limitada em 50 caractéres">Descrição</th>
                             <th style="width: 100px;">Valor Total (R$)</th>
                             <th style="width: 100px;text-align: center;">Serviços</th>
+                            <th style="width: 100px;text-align: center;">Produtos</th>
                             <th style="width: 200px;text-align: center;">Data Criação</th>
                             <th style="width: 100px;">Ações</th>
                         </tr>
@@ -46,6 +47,7 @@
                             <td>{{$order->description_limited}}</td>
                             <td style="text-align: right;">{{$order->total_value_formatted}}</td>
                             <td style="text-align: right;">{{$order->services_count}}</td>
+                            <td style="text-align: right;">{{$order->products_count}}</td>
                             <td style="text-align: center;">{{$order->created_at->format('d/m/Y H:i:s')}}</td>
                             <td>
                                 <ul class="list-inline mb-0">

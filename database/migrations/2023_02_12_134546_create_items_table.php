@@ -8,16 +8,19 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('order_service', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained();
-            $table->foreignId('service_id')->constrained();
+            $table->string('name');
             $table->decimal('value');
+            $table->enum('type', ['product', 'service']);
+            $table->foreignId('company_id')->constrained();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('order_service');
+        Schema::dropIfExists('items');
     }
 };

@@ -2,11 +2,12 @@
 
 namespace Tests\Feature\Livewire\Orders;
 
+use App\Enums\ItemType;
 use App\Http\Livewire\Orders\Edit;
 use App\Models\Customer;
+use App\Models\Item;
+use App\Models\ItemOrder;
 use App\Models\Order;
-use App\Models\OrderService;
-use App\Models\Service;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
@@ -105,14 +106,35 @@ class EditTest extends TestCase
 
         $this->actingAs($user);
 
-        $service = Service::factory()->for($user->company)->create();
+        $service = Item::factory([
+            'type' => ItemType::Service,
+        ])->for($user->company)->create();
 
         $order = Order::factory()->for($user->company)->create();
 
         Livewire::test(Edit::class, [$order->id])
             ->set('search', $service->name)
             ->assertSet('search', $service->name)
-            ->assertSeeHtmlInOrder(['id="services-table"', $service->name]);
+            ->assertSeeHtmlInOrder(['id="items-table"', $service->name]);
+    }
+
+    /** @test */
+    public function user_can_search_product()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user);
+
+        $product = Item::factory([
+            'type' => ItemType::Product,
+        ])->for($user->company)->create();
+
+        $order = Order::factory()->for($user->company)->create();
+
+        Livewire::test(Edit::class, [$order->id])
+            ->set('search', $product->name)
+            ->assertSet('search', $product->name)
+            ->assertSeeHtmlInOrder(['id="items-table"', $product->name]);
     }
 
     /** @test */
@@ -122,25 +144,53 @@ class EditTest extends TestCase
 
         $this->actingAs($user);
 
-        $service = Service::factory()->for($user->company)->create();
+        $service = Item::factory([
+            'type' => ItemType::Service,
+        ])->for($user->company)->create();
 
         $order = Order::factory()->for($user->company)->create();
 
         Livewire::test(Edit::class, [$order->id])
             ->set('search', $service->name)
             ->assertSet('search', $service->name)
-            ->call('addService', $service->id)
-            ->assertSeeHtmlInOrder(['id="order-services-table"', $service->name]);
+            ->call('addItem', $service->id)
+            ->assertSeeHtmlInOrder(['id="order-items-table"', $service->name]);
     }
 
     /** @test */
-    public function user_can_search_and_add_service_and_create()
+    public function user_can_search_and_add_product()
     {
         $user = User::factory()->create();
 
         $this->actingAs($user);
 
-        $service = Service::factory()->for($user->company)->create();
+        $product = Item::factory([
+            'type' => ItemType::Product,
+        ])->for($user->company)->create();
+
+        $order = Order::factory()->for($user->company)->create();
+
+        Livewire::test(Edit::class, [$order->id])
+            ->set('search', $product->name)
+            ->assertSet('search', $product->name)
+            ->call('addItem', $product->id)
+            ->assertSeeHtmlInOrder(['id="order-items-table"', $product->name]);
+    }
+
+    /** @test */
+    public function user_can_search_and_add_service_and_product_and_edit()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user);
+
+        $product = Item::factory([
+            'type' => ItemType::Product,
+        ])->for($user->company)->create();
+
+        $service = Item::factory([
+            'type' => ItemType::Service,
+        ])->for($user->company)->create();
 
         $customer = Customer::factory()->for($user->company)->create();
 
@@ -152,7 +202,10 @@ class EditTest extends TestCase
             ->set('order.customer_id', $customer->id)
             ->set('search', $service->name)
             ->assertSet('search', $service->name)
-            ->call('addService', $service->id)
+            ->call('addItem', $service->id)
+            ->set('search', $product->name)
+            ->assertSet('search', $product->name)
+            ->call('addItem', $product->id)
             ->call('store');
 
         $this->assertTrue(
@@ -163,7 +216,12 @@ class EditTest extends TestCase
         );
 
         $this->assertTrue(
-            OrderService::whereServiceId($service->id)
+            ItemOrder::whereItemId($service->id)
+                ->exists()
+        );
+        
+        $this->assertTrue(
+            ItemOrder::whereItemId($product->id)
                 ->exists()
         );
     }

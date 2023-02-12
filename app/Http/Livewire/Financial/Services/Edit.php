@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Financial\Services;
 
-use App\Models\Service;
+use App\Models\Item;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Component;
 
@@ -10,7 +10,7 @@ class Edit extends Component
 {
     public $value;
 
-    public Service $service;
+    public Item $service;
 
     protected $rules = [
         'service.name' => ['required', 'min:3'],
@@ -44,7 +44,7 @@ class Edit extends Component
     public function mount($id)
     {
         try {
-            $this->service = Service::relatedToUserCompany()->findOrFail($id);
+            $this->service = Item::relatedToUserCompany()->findOrFail($id);
         } catch (ModelNotFoundException $exception) {
             session()->flash('message', 'Usuário inválido!');
             session()->flash('type', 'warning');

@@ -2,8 +2,9 @@
 
 namespace Tests\Feature\Livewire\Financial\Products;
 
+use App\Enums\ItemType;
 use App\Http\Livewire\Financial\Products\Index;
-use App\Models\Product;
+use App\Models\Item;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -28,11 +29,12 @@ class IndexTest extends TestCase
     {
         $this->actingAs(User::factory()->create());
 
-        Product::factory()->count(5)->create([
+        Item::factory()->count(5)->create([
+            'type' => ItemType::Product,
             'company_id' => auth()->user()->company_id,
         ]);
 
-        $product = Product::all()->first();
+        $product = Item::all()->first();
 
         Livewire::test(Index::class)
             ->set('search', $product->name)
@@ -45,11 +47,12 @@ class IndexTest extends TestCase
     {
         $this->actingAs(User::factory()->create());
 
-        Product::factory()->count(5)->create([
+        Item::factory()->count(5)->create([
+            'type' => ItemType::Product,
             'company_id' => auth()->user()->company_id,
         ]);
 
-        $product = Product::all()->first();
+        $product = Item::all()->first();
 
         Livewire::test(Index::class)
             ->set('search', intval($product->value))
@@ -62,12 +65,12 @@ class IndexTest extends TestCase
     {
         $this->actingAs(User::factory()->create());
 
-        $product = Product::factory()->create();
+        $product = Item::factory()->create();
 
         Livewire::test(Index::class)
             ->call(
                 'destroy',
-                'product',
+                'Item',
                 $product->id
             )->assertEmitted('alert', [
                 'type' => 'success',

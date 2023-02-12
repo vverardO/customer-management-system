@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire\Financial\Services;
 
-use App\Models\Service;
+use App\Enums\ItemType;
+use App\Models\Item;
 use Livewire\Component;
 
 class Create extends Component
 {
     public $value;
 
-    public Service $service;
+    public Item $service;
 
     protected $rules = [
         'service.name' => ['required', 'min:3'],
@@ -27,6 +28,7 @@ class Create extends Component
         $this->validate();
 
         $this->service->company_id = auth()->user()->company_id;
+        $this->service->type = ItemType::Service;
         $this->service->value = str_replace(',', '.', str_replace('.', '', $this->value));
 
         $this->service->save();
@@ -39,7 +41,7 @@ class Create extends Component
 
     public function mount()
     {
-        $this->service = new Service();
+        $this->service = new Item();
     }
 
     public function render()

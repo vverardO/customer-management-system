@@ -2,8 +2,9 @@
 
 namespace Tests\Feature\Livewire\Financial\Products;
 
+use App\Enums\ItemType;
 use App\Http\Livewire\Financial\Products\Edit;
-use App\Models\Product;
+use App\Models\Item;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -18,7 +19,7 @@ class EditTest extends TestCase
     {
         $this->actingAs(User::factory()->create());
 
-        $product = Product::factory()->create();
+        $product = Item::factory()->create();
 
         $component = Livewire::test(Edit::class, [$product->id]);
 
@@ -32,7 +33,9 @@ class EditTest extends TestCase
 
         $this->actingAs($user);
 
-        $product = Product::factory()->for($user->company)->create();
+        $product = Item::factory([
+            'type' => ItemType::Product,
+        ])->for($user->company)->create();
 
         Livewire::test(Edit::class, [$product->id])
             ->set('product.name', 'product name')
@@ -43,7 +46,8 @@ class EditTest extends TestCase
             ->assertRedirect(route('products.index'));
 
         $this->assertTrue(
-            Product::whereName('product name')
+            Item::whereName('product name')
+                ->where('type', ItemType::Product)
                 ->whereValue(12.00)
                 ->exists()
         );
@@ -56,7 +60,9 @@ class EditTest extends TestCase
 
         $this->actingAs($user);
 
-        $product = Product::factory()->for($user->company)->create();
+        $product = Item::factory([
+            'type' => ItemType::Product,
+        ])->for($user->company)->create();
 
         Livewire::test(Edit::class, [$product->id])
             ->set('product.name', '')

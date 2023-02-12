@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Financial\Services;
 
-use App\Models\Service;
+use App\Models\Item;
 use App\Traits\Destroyable;
 use App\Traits\Showable;
 use Illuminate\Database\Eloquent\Builder;
@@ -26,7 +26,7 @@ class Index extends Component
 
     public function render()
     {
-        $services = Service::where(function (Builder $builder) {
+        $services = Item::isService()->where(function (Builder $builder) {
             if ($this->search) {
                 $builder->where(function (Builder $query) {
                     $query->where('name', 'like', '%'.$this->search.'%');

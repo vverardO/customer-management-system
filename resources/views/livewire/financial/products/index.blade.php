@@ -45,7 +45,7 @@
                                         <a href="{{route('products.edit', ['id' => $product->id])}}" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
                                     </li>
                                     <li class="list-inline-item">
-                                        <a href="#" wire:click="destroy('Product', {{$product->id}})" class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
+                                        <a href="#" wire:click="destroy('Item', {{$product->id}})" class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
                                     </li>
                                 </ul>
                             </td>

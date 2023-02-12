@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Orders;
 
 use App\Models\Customer;
+use App\Models\Item;
 use App\Models\Order;
 use App\Models\Service;
 use Exception;
@@ -17,7 +18,7 @@ class Create extends Component
 
     public $customers;
 
-    public $orderServices = [];
+    public $orderItems = [];
 
     public $total_value;
 
@@ -52,10 +53,10 @@ class Create extends Component
         $this->order->save();
 
         try {
-            $this->order->services()->detach();
+            $this->order->items()->detach();
 
-            collect($this->orderServices)->each(function ($service) {
-                $this->order->services()->attach($service['id'], ['value' => $service['value']]);
+            collect($this->orderItems)->each(function ($item) {
+                $this->order->items()->attach($item['id'], ['value' => $item['value']]);
             });
         } catch (Exception $exception) {
             session()->flash('message', 'Erro ao salvar os serviços!');
@@ -70,28 +71,29 @@ class Create extends Component
         return redirect()->route('orders.index');
     }
 
-    public function addService(Service $service)
+    public function addItem(Item $item)
     {
-        $this->orderServices[] = [
-            'id' => $service->id,
-            'name' => $service->name,
-            'value' => $service->value,
-            'value_formatted' => $service->value_formatted,
+        $this->orderItems[] = [
+            'id' => $item->id,
+            'name' => $item->name,
+            'value' => $item->value,
+            'value_formatted' => $item->value_formatted,
+            'type_formatted' => $item->type_formatted,
         ];
 
         $this->refresh();
     }
 
-    public function removeService(int $index)
+    public function removeItem(int $index)
     {
-        unset($this->orderServices[$index]);
+        unset($this->orderItems[$index]);
 
         $this->refresh();
     }
 
     private function refresh()
     {
-        $totalValue = number_format(collect($this->orderServices)->sum('value'), 2, ',', '.');
+        $totalValue = number_format(collect($this->orderItems)->sum('value'), 2, ',', '.');
 
         $this->total_value = $totalValue;
     }
@@ -107,10 +109,10 @@ class Create extends Component
 
     public function render()
     {
-        $services = [];
+        $items = [];
 
         if (2 <= strlen($this->search)) {
-            $services = Service::where(function (Builder $builder) {
+            $items = Item::where(function (Builder $builder) {
                 $builder->where(function (Builder $query) {
                     $query->where('name', 'like', '%'.$this->search.'%');
                     $query->orWhere('value', $this->search);
@@ -118,6 +120,6 @@ class Create extends Component
             })->relatedToUserCompany()->orderByDesc('created_at')->limit(5)->get();
         }
 
-        return view('livewire.orders.create', compact('services'));
+        return view('livewire.orders.create', compact('items'));
     }
 }

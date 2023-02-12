@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\AccessRole;
 use App\Models\Company;
+use App\Models\Item;
 use App\Models\Order;
 use App\Models\Service;
 use App\Models\User;
@@ -31,10 +32,17 @@ class DatabaseSeeder extends Seeder
                     ->create()
                     ->each(function ($order) {
                         $totalValue = 0;
+
                         $quantity = random_int(1, 5);
-                        Service::inRandomOrder()->take($quantity)->get()->each(function ($service) use ($order, &$totalValue) {
+                        Item::isService()->inRandomOrder()->take($quantity)->get()->each(function ($service) use ($order, &$totalValue) {
                             $totalValue += $service->value;
                             $order->services()->attach($service, ['value' => $service->value]);
+                        });
+
+                        $quantity = random_int(1, 5);
+                        Item::isProduct()->inRandomOrder()->take($quantity)->get()->each(function ($service) use ($order, &$totalValue) {
+                            $totalValue += $service->value;
+                            $order->products()->attach($service, ['value' => $service->value]);
                         });
 
                         $order->update(['total_value' => $totalValue]);
