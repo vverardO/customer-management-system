@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Financial\Products;
 
 use App\Models\Item;
-use App\Models\Product;
 use App\Traits\Destroyable;
 use App\Traits\Showable;
 use Illuminate\Database\Eloquent\Builder;

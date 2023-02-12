@@ -6,8 +6,8 @@ use App\Enums\ItemType;
 use App\Http\Livewire\Orders\Create;
 use App\Models\Customer;
 use App\Models\Item;
-use App\Models\Order;
 use App\Models\ItemOrder;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
@@ -102,7 +102,6 @@ class CreateTest extends TestCase
             ->assertSeeHtmlInOrder(['id="items-table"', $service->name]);
     }
 
-
     /** @test */
     public function user_can_search_product()
     {
@@ -166,7 +165,7 @@ class CreateTest extends TestCase
         $product = Item::factory([
             'type' => ItemType::Product,
         ])->for($user->company)->create();
-        
+
         $service = Item::factory([
             'type' => ItemType::Service,
         ])->for($user->company)->create();
@@ -196,7 +195,7 @@ class CreateTest extends TestCase
             ItemOrder::whereItemId($service->id)
                 ->exists()
         );
-        
+
         $this->assertTrue(
             ItemOrder::whereItemId($product->id)
                 ->exists()

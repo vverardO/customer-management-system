@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Orders;
 use App\Models\Customer;
 use App\Models\Item;
 use App\Models\Order;
-use App\Models\Service;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;

@@ -6,7 +6,6 @@ use App\Models\AccessRole;
 use App\Models\Company;
 use App\Models\Item;
 use App\Models\Order;
-use App\Models\Service;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 

@@ -219,7 +219,7 @@ class EditTest extends TestCase
             ItemOrder::whereItemId($service->id)
                 ->exists()
         );
-        
+
         $this->assertTrue(
             ItemOrder::whereItemId($product->id)
                 ->exists()

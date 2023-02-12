@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Financial\Products;
 
 use App\Models\Item;
-use App\Models\Product;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Component;
 
