@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $company = Company::factory()
             ->hasServices(30)
+            ->hasProducts(30)
             ->hasCustomers(10)
             ->create();
 

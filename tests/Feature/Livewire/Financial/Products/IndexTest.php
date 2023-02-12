@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Feature\Livewire\Services;
+namespace Tests\Feature\Livewire\Financial\Products;
 
-use App\Http\Livewire\Services\Index;
-use App\Models\Service;
+use App\Http\Livewire\Financial\Products\Index;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -24,56 +24,56 @@ class IndexTest extends TestCase
     }
 
     /** @test */
-    public function search_for_service_name()
+    public function search_for_product_name()
     {
         $this->actingAs(User::factory()->create());
 
-        Service::factory()->count(5)->create([
+        Product::factory()->count(5)->create([
             'company_id' => auth()->user()->company_id,
         ]);
 
-        $service = Service::all()->first();
+        $product = Product::all()->first();
 
         Livewire::test(Index::class)
-            ->set('search', $service->name)
+            ->set('search', $product->name)
             ->call('render')
-            ->assertSee($service->name);
+            ->assertSee($product->name);
     }
 
     /** @test */
-    public function search_for_service_value()
+    public function search_for_product_value()
     {
         $this->actingAs(User::factory()->create());
 
-        Service::factory()->count(5)->create([
+        Product::factory()->count(5)->create([
             'company_id' => auth()->user()->company_id,
         ]);
 
-        $service = Service::all()->first();
+        $product = Product::all()->first();
 
         Livewire::test(Index::class)
-            ->set('search', intval($service->value))
+            ->set('search', intval($product->value))
             ->call('render')
-            ->assertSee($service->value_formatted);
+            ->assertSee($product->value_formatted);
     }
 
     /** @test */
-    public function destroy_a_service()
+    public function destroy_a_product()
     {
         $this->actingAs(User::factory()->create());
 
-        $service = Service::factory()->create();
+        $product = Product::factory()->create();
 
         Livewire::test(Index::class)
             ->call(
                 'destroy',
-                'Service',
-                $service->id
+                'product',
+                $product->id
             )->assertEmitted('alert', [
                 'type' => 'success',
                 'message' => 'Excluído com sucesso!',
             ]);
 
-        $this->assertSoftDeleted($service);
+        $this->assertSoftDeleted($product);
     }
 }

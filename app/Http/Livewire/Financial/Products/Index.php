@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Livewire\Services;
+namespace App\Http\Livewire\Financial\Products;
 
-use App\Models\Service;
+use App\Models\Product;
 use App\Traits\Destroyable;
 use App\Traits\Showable;
 use Illuminate\Database\Eloquent\Builder;
@@ -26,7 +26,7 @@ class Index extends Component
 
     public function render()
     {
-        $services = Service::where(function (Builder $builder) {
+        $products = Product::where(function (Builder $builder) {
             if ($this->search) {
                 $builder->where(function (Builder $query) {
                     $query->where('name', 'like', '%'.$this->search.'%');
@@ -35,6 +35,6 @@ class Index extends Component
             }
         })->relatedToUserCompany()->orderBy('name')->get();
 
-        return view('livewire.services.index', compact(['services']));
+        return view('livewire.financial.products.index', compact(['products']));
     }
 }

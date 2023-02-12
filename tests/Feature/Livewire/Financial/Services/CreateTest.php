@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Feature\Livewire\Services;
+namespace Tests\Feature\Livewire\Financial\Services;
 
-use App\Http\Livewire\Services\Create;
+use App\Http\Livewire\Financial\Services\Create;
 use App\Models\Service;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;

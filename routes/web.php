@@ -10,9 +10,12 @@ use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Orders\Create as OrdersCreate;
 use App\Http\Livewire\Orders\Edit as OrdersEdit;
 use App\Http\Livewire\Orders\Index as OrdersIndex;
-use App\Http\Livewire\Services\Create as ServicesCreate;
-use App\Http\Livewire\Services\Edit as ServicesEdit;
-use App\Http\Livewire\Services\Index as ServicesIndex;
+use App\Http\Livewire\Financial\Services\Create as ServicesCreate;
+use App\Http\Livewire\Financial\Services\Edit as ServicesEdit;
+use App\Http\Livewire\Financial\Services\Index as ServicesIndex;
+use App\Http\Livewire\Financial\Products\Create as ProductsCreate;
+use App\Http\Livewire\Financial\Products\Edit as ProductsEdit;
+use App\Http\Livewire\Financial\Products\Index as ProductsIndex;
 use App\Http\Livewire\Users\Create as UsersCreate;
 use App\Http\Livewire\Users\Edit as UsersEdit;
 use App\Http\Livewire\Users\Index as UsersIndex;
@@ -40,15 +43,23 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/edit/{id}', OrdersEdit::class)->name('orders.edit');
     });
 
-    Route::prefix('services')->group(function () {
-        Route::get('/', ServicesIndex::class)->name('services.index');
-        Route::get('/create', ServicesCreate::class)->name('services.create');
-        Route::get('/edit/{id}', ServicesEdit::class)->name('services.edit');
-    });
-
     Route::prefix('users')->group(function () {
         Route::get('/', UsersIndex::class)->name('users.index');
         Route::get('/create', UsersCreate::class)->name('users.create');
         Route::get('/edit/{id}', UsersEdit::class)->name('users.edit');
+    });
+
+    Route::prefix('financial')->group(function () {
+        Route::prefix('services')->group(function () {
+            Route::get('/', ServicesIndex::class)->name('services.index');
+            Route::get('/create', ServicesCreate::class)->name('services.create');
+            Route::get('/edit/{id}', ServicesEdit::class)->name('services.edit');
+        });
+
+        Route::prefix('products')->group(function () {
+            Route::get('/', ProductsIndex::class)->name('products.index');
+            Route::get('/create', ProductsCreate::class)->name('products.create');
+            Route::get('/edit/{id}', ProductsEdit::class)->name('products.edit');
+        });
     });
 });

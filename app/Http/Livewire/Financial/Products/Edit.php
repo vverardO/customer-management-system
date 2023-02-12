@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Livewire\Services;
+namespace App\Http\Livewire\Financial\Products;
 
-use App\Models\Service;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Component;
 
@@ -10,16 +10,16 @@ class Edit extends Component
 {
     public $value;
 
-    public Service $service;
+    public Product $product;
 
     protected $rules = [
-        'service.name' => ['required', 'min:3'],
+        'product.name' => ['required', 'min:3'],
         'value' => ['required'],
     ];
 
     protected $messages = [
-        'service.name.required' => 'Insira o nome',
-        'service.name.min' => 'Mínimo 3 letras',
+        'product.name.required' => 'Insira o nome',
+        'product.name.min' => 'Mínimo 3 letras',
         'value.required' => 'Insira o valor',
     ];
 
@@ -28,35 +28,35 @@ class Edit extends Component
         $this->validate();
 
         if (str_contains($this->value, ',')) {
-            $this->service->value = str_replace(',', '.', str_replace('.', '', $this->value));
+            $this->product->value = str_replace(',', '.', str_replace('.', '', $this->value));
         } else {
-            $this->service->value = $this->value;
+            $this->product->value = $this->value;
         }
 
-        $this->service->save();
+        $this->product->save();
 
         session()->flash('message', 'Atualizado com sucesso!');
         session()->flash('type', 'success');
 
-        return redirect()->route('services.index');
+        return redirect()->route('products.index');
     }
 
     public function mount($id)
     {
         try {
-            $this->service = Service::relatedToUserCompany()->findOrFail($id);
+            $this->product = Product::relatedToUserCompany()->findOrFail($id);
         } catch (ModelNotFoundException $exception) {
             session()->flash('message', 'Usuário inválido!');
             session()->flash('type', 'warning');
 
-            return redirect()->route('services.index');
+            return redirect()->route('products.index');
         }
 
-        $this->value = $this->service->value;
+        $this->value = $this->product->value;
     }
 
     public function render()
     {
-        return view('livewire.services.edit');
+        return view('livewire.financial.products.edit');
     }
 }

@@ -35,6 +35,11 @@ class Company extends Model
         return $this->hasMany(Service::class);
     }
 
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+
     public function customers(): HasMany
     {
         return $this->hasMany(Customer::class);

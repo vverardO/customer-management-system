@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Services;
+namespace App\Http\Livewire\Financial\Services;
 
 use App\Models\Service;
 use Livewire\Component;
@@ -44,6 +44,6 @@ class Create extends Component
 
     public function render()
     {
-        return view('livewire.services.create');
+        return view('livewire.financial.services.create');
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Feature\Livewire\Services;
+namespace Tests\Feature\Livewire\Financial\Products;
 
-use App\Http\Livewire\Services\Edit;
-use App\Models\Service;
+use App\Http\Livewire\Financial\Products\Edit;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -18,32 +18,32 @@ class EditTest extends TestCase
     {
         $this->actingAs(User::factory()->create());
 
-        $service = Service::factory()->create();
+        $product = Product::factory()->create();
 
-        $component = Livewire::test(Edit::class, [$service->id]);
+        $component = Livewire::test(Edit::class, [$product->id]);
 
         $component->assertStatus(200);
     }
 
     /** @test */
-    public function service_can_be_edited()
+    public function product_can_be_edited()
     {
         $user = User::factory()->create();
 
         $this->actingAs($user);
 
-        $service = Service::factory()->for($user->company)->create();
+        $product = Product::factory()->for($user->company)->create();
 
-        Livewire::test(Edit::class, [$service->id])
-            ->set('service.name', 'service name')
+        Livewire::test(Edit::class, [$product->id])
+            ->set('product.name', 'product name')
             ->set('value', 12.00)
             ->call('store')
             ->assertSessionHas('message', 'Atualizado com sucesso!')
             ->assertSessionHas('type', 'success')
-            ->assertRedirect(route('services.index'));
+            ->assertRedirect(route('products.index'));
 
         $this->assertTrue(
-            Service::whereName('service name')
+            Product::whereName('product name')
                 ->whereValue(12.00)
                 ->exists()
         );
@@ -56,14 +56,14 @@ class EditTest extends TestCase
 
         $this->actingAs($user);
 
-        $service = Service::factory()->for($user->company)->create();
+        $product = Product::factory()->for($user->company)->create();
 
-        Livewire::test(Edit::class, [$service->id])
-            ->set('service.name', '')
+        Livewire::test(Edit::class, [$product->id])
+            ->set('product.name', '')
             ->set('value', '')
             ->call('store')
             ->assertHasErrors([
-                'service.name' => 'required',
+                'product.name' => 'required',
                 'value' => 'required',
             ]);
     }
