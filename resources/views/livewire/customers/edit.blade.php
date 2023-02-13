@@ -1,5 +1,5 @@
-@section('head.title', 'Clientes | Cadastrar')
-@section('page.title', 'Cadastrar um Cliente')
+@section('head.title', 'Clientes | Atualizar')
+@section('page.title', "Atualização do Cliente {$customer->name}")
 
 <div class="col-lg-12">
     <div class="card">
@@ -45,6 +45,108 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+    <div class="row align-items-start">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Adicionar um endereço</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3 row">
+                        <label class="col-md-3 col-form-label">CEP</label>
+                        <div class="col-md-6">
+                            <input class="form-control" placeholder="97010400" wire:model="postcode">
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-success waves-effect waves-light" wire:click="getAddress">
+                                <i class="fas fa-search-location"></i>
+                            </button>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-success waves-effect waves-light" wire:click="pushAddress">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-md-3 col-form-label">Cidade</label>
+                        <div class="col-md-9">
+                            <input class="form-control" placeholder="Santa Maria" wire:model="address.city">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-md-3 col-form-label">Estado</label>
+                        <div class="col-md-9">
+                            <input class="form-control" placeholder="Rio de Janeiro" wire:model="address.state">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-md-3 col-form-label">Bairro</label>
+                        <div class="col-md-9">
+                            <input class="form-control" placeholder="São José" wire:model="address.neighborhood">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-md-3 col-form-label">Rua</label>
+                        <div class="col-md-9">
+                            <input class="form-control" placeholder="Rua das Macieiras" wire:model="address.street">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-md-3 col-form-label">Número</label>
+                        <div class="col-md-9">
+                            <input class="form-control" placeholder="100" wire:model="address.number">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-md-3 col-form-label">Complemento</label>
+                        <div class="col-md-9">
+                            <input class="form-control" placeholder="Apartamento, sala, conjunto, edifício, andar, etc." wire:model="address.complement">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Endereços</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table align-middle table-nowrap" id="order-items-table">
+                        <thead>
+                            <tr>
+                                <th>Cep</th>
+                                <th>Rua</th>
+                                <th>Número</th>
+                                <th>Complemento</th>
+                                <th style="width: 10px;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @forelse($customerAddresses as $index => $address)
+                            <tr>
+                                <td>{{$address['postcode']}}</td>
+                                <td>{{$address['street']}}</td>
+                                <td>{{$address['number'] ?? ""}}</td>
+                                <td>{{$address['complement_limited'] ?? ""}}</td>
+                                <td style="text-align: center;">
+                                    <a type="button" rel="tooltip" class="text-danger">
+                                        <i class="fas fa-times" wire:click="removeAddress({{$index}})"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" align="center">Nenhuma informação a ser apresentada</td>
+                            </tr>
+                        @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>

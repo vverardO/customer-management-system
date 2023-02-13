@@ -3,6 +3,7 @@
 namespace Tests\Feature\Livewire\Customers;
 
 use App\Http\Livewire\Customers\Edit;
+use App\Models\Address;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -96,5 +97,54 @@ class EditTest extends TestCase
                 'customer.general_record' => 'digits',
                 'customer.registration_physical_person' => 'size',
             ]);
+    }
+
+    /** @test */
+    public function user_can_add_address_and_store()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user);
+
+        $customer = Customer::factory()->for($user->company)->create();
+
+        Livewire::test(Edit::class, [$customer->id])
+            ->set('customer.name', 'customer name')
+            ->set('customer.general_record', '7289382761')
+            ->set('customer.registration_physical_person', '950.425.060-20')
+            ->set('postcode', '97010400')
+            ->call('getAddress')
+            ->call('pushAddress')
+            ->call('store');
+
+        $this->assertTrue(
+            Address::wherePostcode('97010400')
+                ->whereCustomerId($customer->id)
+                ->exists()
+        );
+    }
+
+    /** @test */
+    public function user_can_remove_address_and_store()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user);
+
+        $customer = Customer::factory()->for($user->company)->create();
+
+        $address = Address::factory([
+            'postcode' => '97010400'
+        ])->for($customer)->create();
+
+        Livewire::test(Edit::class, [$customer->id])
+            ->call('removeAddress', 0)
+            ->call('store');
+
+        $this->assertTrue(
+            Address::onlyTrashed()
+                ->whereId($address->id)
+                ->exists()
+        );
     }
 }

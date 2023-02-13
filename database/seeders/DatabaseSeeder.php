@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\AccessRole;
+use App\Models\Address;
 use App\Models\Company;
+use App\Models\Customer;
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\User;
@@ -16,8 +18,18 @@ class DatabaseSeeder extends Seeder
         $company = Company::factory()
             ->hasServices(30)
             ->hasProducts(30)
-            ->hasCustomers(10)
             ->create();
+
+        Customer::factory()
+            ->count(10)
+            ->for($company)
+            ->create()
+            ->each(function ($customer) {
+                Address::factory()
+                    ->count(random_int(1, 3))
+                    ->for($customer)
+                    ->create();
+            });
 
         $company
             ->customers()
