@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Customers;
 
-use App\Models\Address;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Services\AddressSearch\AddressSearch;
