@@ -8,7 +8,8 @@ class AddressSearch
 {
     public function __construct(
         readonly AddressSearchInterface $addressSearchHandler,
-    ) {}
+    ) {
+    }
 
     public function handle(
         string $postcode,

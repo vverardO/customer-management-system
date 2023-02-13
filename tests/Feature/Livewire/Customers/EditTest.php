@@ -134,7 +134,7 @@ class EditTest extends TestCase
         $customer = Customer::factory()->for($user->company)->create();
 
         $address = Address::factory([
-            'postcode' => '97010400'
+            'postcode' => '97010400',
         ])->for($customer)->create();
 
         Livewire::test(Edit::class, [$customer->id])

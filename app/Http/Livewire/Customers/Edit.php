@@ -40,7 +40,7 @@ class Edit extends Component
         } catch (Exception $exception) {
             return $this->emit('alert', [
                 'type' => 'danger',
-                'message' => 'Insira um CEP Válido!'
+                'message' => 'Insira um CEP Válido!',
             ]);
         }
 
@@ -61,7 +61,7 @@ class Edit extends Component
 
     public function refresh()
     {
-        $this->postcode = "";
+        $this->postcode = '';
         $this->address = [];
     }
 

@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Customer;
-use App\Models\School;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AddressFactory extends Factory
@@ -15,7 +14,7 @@ class AddressFactory extends Factory
             'street' => $this->faker->streetAddress(),
             'number' => $this->faker->randomNumber(3),
             'complement' => $this->faker->sentence(10),
-            'neighborhood' => implode(" ", $this->faker->words(2)),
+            'neighborhood' => implode(' ', $this->faker->words(2)),
             'city' => $this->faker->city(),
             'state' => $this->faker->word(),
             'customer_id' => Customer::inRandomOrder()->first()->id,

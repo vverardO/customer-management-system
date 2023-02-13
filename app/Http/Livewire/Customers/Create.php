@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire\Customers;
 
-use App\Services\AddressSearch\AddressSearch;
 use App\Models\Customer;
+use App\Services\AddressSearch\AddressSearch;
 use Exception;
 use Livewire\Component;
 
@@ -39,7 +39,7 @@ class Create extends Component
         } catch (Exception $exception) {
             return $this->emit('alert', [
                 'type' => 'danger',
-                'message' => 'Insira um CEP Válido!'
+                'message' => 'Insira um CEP Válido!',
             ]);
         }
 
@@ -60,7 +60,7 @@ class Create extends Component
 
     public function refresh()
     {
-        $this->postcode = "";
+        $this->postcode = '';
         $this->address = [];
     }
 

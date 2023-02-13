@@ -8,18 +8,18 @@ use GuzzleHttp\Client;
 
 class ViaCEP implements AddressSearchInterface
 {
-    private string $url = "http://viacep.com.br/ws/";
+    private string $url = 'http://viacep.com.br/ws/';
 
     public function client(): Client
     {
         return new Client([
-            'base_uri' => $this->url
+            'base_uri' => $this->url,
         ]);
     }
 
     public function get(string $postcode): array
     {
-        if ("" == $postcode) {
+        if ('' == $postcode) {
             throw new Exception();
         }
 
@@ -31,11 +31,11 @@ class ViaCEP implements AddressSearchInterface
         );
 
         return [
-            "postcode" => $postcode,
-            "street" => $response->logradouro,
-            "city" => $response->localidade,
-            "state" => $response->uf,
-            "neighborhood" => $response->bairro,
+            'postcode' => $postcode,
+            'street' => $response->logradouro,
+            'city' => $response->localidade,
+            'state' => $response->uf,
+            'neighborhood' => $response->bairro,
         ];
     }
 }
