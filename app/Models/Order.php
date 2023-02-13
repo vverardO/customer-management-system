@@ -25,6 +25,7 @@ class Order extends Model
         'total_value',
         'company_id',
         'customer_id',
+        'address_id',
     ];
 
     protected $dates = [

@@ -18,6 +18,8 @@ class Edit extends Component
 
     public $customers;
 
+    public $addresses;
+
     public $orderItems = [];
 
     public $total_value;
@@ -27,6 +29,7 @@ class Edit extends Component
         'order.description' => ['max:255'],
         'order.total_value' => ['sometimes'],
         'order.customer_id' => ['required'],
+        'order.address_id' => ['sometimes'],
     ];
 
     protected $messages = [
@@ -107,6 +110,8 @@ class Edit extends Component
 
         $this->customers = Customer::select(['name', 'id'])->get();
 
+        $this->addresses = [];
+
         $this->total_value = $this->order->total_value;
 
         if ($this->order->items()->count() > 0) {
@@ -133,6 +138,10 @@ class Edit extends Component
                     $query->orWhere('value', $this->search);
                 });
             })->relatedToUserCompany()->orderByDesc('created_at')->limit(5)->get();
+        }
+
+        if ($this->order->customer_id) {
+            $this->addresses = $this->order->customer->addresses;
         }
 
         return view('livewire.orders.edit', compact('items'));

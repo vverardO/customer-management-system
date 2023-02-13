@@ -30,13 +30,29 @@
                 <div class="mb-3 row">
                     <label class="col-md-2 col-form-label">Cliente</label>
                     <div class="col-md-10">
-                        <select class="form-select @error('order.customer_id') is-invalid @enderror" wire:model="order.customer_id" wire:change="$emit('productChanged')">
+                        <select class="form-select @error('order.customer_id') is-invalid @enderror" wire:model="order.customer_id">
                             <option>Selecione</option>
                             @foreach($customers as $customer)
                             <option value="{{$customer->id}}">{{$customer->name}}</option>
                             @endforeach
                         </select>
                         @error('order.customer_id')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-md-2 col-form-label">Endereço</label>
+                    <div class="col-md-10">
+                        <select class="form-select @error('order.address_id') is-invalid @enderror" wire:model="order.address_id">
+                            <option>Selecione</option>
+                            @foreach($addresses as $address)
+                            <option value="{{$address->id}}">{{$address->postcode}}, {{$address->street}} - {{$address->number}}</option>
+                            @endforeach
+                        </select>
+                        @error('order.address_id')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -101,7 +117,6 @@
                 </div>
             </div>
         </div>
-        
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-header">

@@ -131,7 +131,7 @@
                                 <td>{{$address['postcode']}}</td>
                                 <td>{{$address['street']}}</td>
                                 <td>{{$address['number'] ?? ""}}</td>
-                                <td>{{$address['complement_limited'] ?? ""}}</td>
+                                <td>@isset($address['complement']) {{Str::limit($address['complement'], 15)}} @else @endif</td>
                                 <td style="text-align: center;">
                                     <a type="button" rel="tooltip" class="text-danger">
                                         <i class="fas fa-times" wire:click="removeAddress({{$index}})"></i>

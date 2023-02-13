@@ -17,6 +17,8 @@ class Create extends Component
 
     public $customers;
 
+    public $addresses;
+
     public $orderItems = [];
 
     public $total_value;
@@ -26,6 +28,7 @@ class Create extends Component
         'order.description' => ['max:255'],
         'total_value' => ['sometimes'],
         'order.customer_id' => ['required'],
+        'order.address_id' => ['sometimes'],
     ];
 
     protected $messages = [
@@ -101,6 +104,8 @@ class Create extends Component
     {
         $this->customers = Customer::select(['name', 'id'])->get();
 
+        $this->addresses = [];
+
         $this->total_value = '0,00';
 
         $this->order = new Order();
@@ -117,6 +122,10 @@ class Create extends Component
                     $query->orWhere('value', $this->search);
                 });
             })->relatedToUserCompany()->orderByDesc('created_at')->limit(5)->get();
+        }
+
+        if ($this->order->customer_id) {
+            $this->addresses = $this->order->customer->addresses;
         }
 
         return view('livewire.orders.create', compact('items'));

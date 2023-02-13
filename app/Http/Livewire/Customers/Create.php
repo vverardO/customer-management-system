@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Customers;
 use App\Models\Customer;
 use App\Services\AddressSearch\AddressSearch;
 use Exception;
+use Illuminate\Support\Collection;
 use Livewire\Component;
 
 class Create extends Component
@@ -15,7 +16,7 @@ class Create extends Component
 
     public array $address;
 
-    public array $customerAddresses = [];
+    public Collection $customerAddresses;
 
     protected $rules = [
         'customer.name' => ['required', 'max:128'],
@@ -94,6 +95,8 @@ class Create extends Component
     public function mount()
     {
         $this->customer = new Customer();
+
+        $this->customerAddresses = collect([]);
     }
 
     public function render()

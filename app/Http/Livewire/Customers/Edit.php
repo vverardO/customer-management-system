@@ -2,10 +2,13 @@
 
 namespace App\Http\Livewire\Customers;
 
+use App\Models\Address;
 use App\Models\Customer;
+use App\Models\Order;
 use App\Services\AddressSearch\AddressSearch;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Collection;
 use Livewire\Component;
 
 class Edit extends Component
@@ -16,7 +19,7 @@ class Edit extends Component
 
     public array $address;
 
-    public $customerAddresses = [];
+    public Collection $customerAddresses;
 
     protected $rules = [
         'customer.name' => ['required', 'max:128'],
@@ -44,7 +47,9 @@ class Edit extends Component
             ]);
         }
 
-        $this->address = $response;
+        $plus = ['customer_id' => $this->customer->id];
+
+        $this->address = [...$response, ...$plus];
     }
 
     public function pushAddress()
@@ -56,6 +61,17 @@ class Edit extends Component
 
     public function removeAddress($key)
     {
+        if (isset($this->customerAddresses[$key]['id'])) {
+            $hasOrders = Order::whereAddressId($this->customerAddresses[$key]['id'])->count();
+
+            if ($hasOrders) {
+                return $this->emit('alert', [
+                    'type' => 'error',
+                    'message' => 'Não pode excluir o endereço, já vinculado a uma ordem de serviço!',
+                ]);
+            }
+        }
+
         unset($this->customerAddresses[$key]);
     }
 
@@ -72,11 +88,15 @@ class Edit extends Component
         $this->customer->save();
 
         try {
-            $this->customer->addresses()->delete();
+            $this->customer
+                ->addresses()
+                ->whereNotIn('id', $this->customerAddresses->pluck('id'))
+                ->delete();
 
-            collect($this->customerAddresses)->each(function ($address) {
-                $this->customer->addresses()->create($address);
-            });
+            $this->customer
+                ->addresses()
+                ->toBase()
+                ->upsert($this->customerAddresses->toArray(), 'id');
         } catch (Exception $exception) {
             session()->flash('message', 'Erro ao salvar os endereços!');
             session()->flash('type', 'warning');
@@ -101,9 +121,12 @@ class Edit extends Component
             return redirect()->route('customers.index');
         }
 
+        $this->customerAddresses = collect([]);
+
         if ($this->customer->addresses()->count() > 0) {
             $this->customerAddresses = $this->customer->addresses->map(function ($address) {
                 return [
+                    'id' => $address->id,
                     'postcode' => $address->postcode,
                     'street' => $address->street,
                     'number' => $address->number,
@@ -111,7 +134,7 @@ class Edit extends Component
                     'neighborhood' => $address->neighborhood,
                     'city' => $address->city,
                     'state' => $address->state,
-                    'complement_limited' => $address->complement_limited,
+                    'customer_id' => $address->customer_id,
                 ];
             });
         }

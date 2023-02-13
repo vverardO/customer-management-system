@@ -44,6 +44,22 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
+                    <label class="col-md-2 col-form-label">Endereço</label>
+                    <div class="col-md-10">
+                        <select class="form-select @error('order.address_id') is-invalid @enderror" wire:model="order.address_id">
+                            <option>Selecione</option>
+                            @foreach($addresses as $address)
+                            <option value="{{$address->id}}">{{$address->postcode}}, {{$address->street}} - {{$address->number}}</option>
+                            @endforeach
+                        </select>
+                        @error('order.address_id')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="mb-3 row">
                     <label class="col-md-2 col-form-label @error('total_value') is-invalid @enderror">Valor total (R$)</label>
                     <div class="col-md-10">
                         <input class="form-control @error('total_value') is-invalid @enderror" readonly id="currency-mask" placeholder="100,00" wire:model="total_value">
@@ -101,7 +117,6 @@
                 </div>
             </div>
         </div>
-        
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-header">
@@ -147,7 +162,6 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // Pattern (Phone)
         var currencyMask = IMask(document.getElementById('currency-mask'), {
             mask: 'num',
             blocks: {
