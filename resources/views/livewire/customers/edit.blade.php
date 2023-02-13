@@ -115,7 +115,7 @@
                     <h5 class="card-title mb-0">Endereços</h5>
                 </div>
                 <div class="card-body">
-                    <table class="table align-middle table-nowrap" id="order-items-table">
+                    <table class="table align-middle table-nowrap">
                         <thead>
                             <tr>
                                 <th>Cep</th>
