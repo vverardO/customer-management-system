@@ -48,6 +48,23 @@ class Navbar extends Component
                     ],
                 ],
             ],
+            'stock' => [
+                'title' => 'Estoque',
+                'icon' => 'fas fa-truck-loading',
+                'active' => request()->routeIs('stock.*') ? 'active' : '',
+                'sub-menus' => [
+                    'entries' => [
+                        'title' => 'Entradas',
+                        'route' => route('entries.index'),
+                        'active' => request()->routeIs('entries.*') ? 'active' : '',
+                    ],
+                    'outputs' => [
+                        'title' => 'Saídas',
+                        'route' => route('outputs.index'),
+                        'active' => request()->routeIs('outputs.*') ? 'active' : '',
+                    ],
+                ],
+            ],
             'users' => [
                 'title' => 'Usuários',
                 'icon' => 'fas fa-users-cog',
@@ -66,6 +83,7 @@ class Navbar extends Component
             unset($this->menus['orders']);
             unset($this->menus['users']);
             unset($this->menus['financial']);
+            unset($this->menus['stock']);
         }
     }
 

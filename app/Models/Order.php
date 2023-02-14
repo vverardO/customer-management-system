@@ -44,6 +44,11 @@ class Order extends Model
         return $this->belongsTo(Company::class);
     }
 
+    public function address(): BelongsTo
+    {
+        return $this->belongsTo(Address::class);
+    }
+
     public function services(): BelongsToMany
     {
         return $this->belongsToMany(Item::class)

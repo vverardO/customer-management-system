@@ -13,9 +13,9 @@ return new class() extends Migration
             $table->string('name', 128);
             $table->string('general_record', 10)->unique();
             $table->string('registration_physical_person', 14)->unique();
+            $table->foreignId('company_id')->constrained();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreignId('company_id')->constrained();
         });
     }
 

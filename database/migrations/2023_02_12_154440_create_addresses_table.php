@@ -17,10 +17,9 @@ return new class extends Migration
             $table->string('state');
             $table->string('neighborhood')->nullable();
             $table->string('complement')->nullable();
+            $table->foreignId('customer_id')->constrained();
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreignId('customer_id')->constrained();
         });
     }
 

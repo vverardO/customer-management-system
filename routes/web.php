@@ -21,6 +21,10 @@ use App\Http\Livewire\Users\Edit as UsersEdit;
 use App\Http\Livewire\Users\Index as UsersIndex;
 use App\Http\Livewire\Users\Profile as UsersProfile;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Stock\Entries\Create as EntriesCreate;
+use App\Http\Livewire\Stock\Entries\Index as EntriesIndex;
+use App\Http\Livewire\Stock\Outputs\Create as OutputsCreate;
+use App\Http\Livewire\Stock\Outputs\Index as OutputsIndex;
 
 Route::get('/login', Login::class)->name('login');
 Route::get('/register', Register::class)->name('register');
@@ -60,6 +64,18 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/', ProductsIndex::class)->name('products.index');
             Route::get('/create', ProductsCreate::class)->name('products.create');
             Route::get('/edit/{id}', ProductsEdit::class)->name('products.edit');
+        });
+    });
+
+    Route::prefix('stock')->group(function () {
+        Route::prefix('entries')->group(function () {
+            Route::get('/', EntriesIndex::class)->name('entries.index');
+            Route::get('/create', EntriesCreate::class)->name('entries.create');
+        });
+
+        Route::prefix('outputs')->group(function () {
+            Route::get('/', OutputsIndex::class)->name('outputs.index');
+            Route::get('/create', OutputsCreate::class)->name('outputs.create');
         });
     });
 });
