@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\AccessRole;
 use App\Models\Address;
 use App\Models\Company;
 use App\Models\Customer;
@@ -26,7 +25,7 @@ class DatabaseSeeder extends Seeder
             ->count(10)
             ->for($company)
             ->create()
-            ->each(function ($customer) use ($company) {
+            ->each(function ($customer) {
                 Address::factory()
                     ->count(random_int(1, 3))
                     ->for($customer)
@@ -84,7 +83,7 @@ class DatabaseSeeder extends Seeder
             ->inRandomOrder()
             ->take($quantity)
             ->get()
-            ->each(function($product) use ($company) {
+            ->each(function ($product) use ($company) {
                 Output::factory()
                     ->count(5)
                     ->for($company)
@@ -98,7 +97,7 @@ class DatabaseSeeder extends Seeder
             ->inRandomOrder()
             ->take($quantity)
             ->get()
-            ->each(function($product) use ($company) {
+            ->each(function ($product) use ($company) {
                 Entry::factory()
                     ->count(5)
                     ->for($company)

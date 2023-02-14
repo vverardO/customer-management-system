@@ -4,7 +4,6 @@ namespace Tests\Feature\Livewire\Stock\Outputs;
 
 use App\Enums\ItemType;
 use App\Http\Livewire\Stock\Outputs\Create;
-use App\Models\Entry;
 use App\Models\Item;
 use App\Models\Output;
 use App\Models\User;

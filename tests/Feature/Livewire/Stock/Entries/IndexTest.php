@@ -4,10 +4,8 @@ namespace Tests\Feature\Livewire\Stock\Entries;
 
 use App\Http\Livewire\Stock\Entries\Index;
 use App\Models\Entry;
-use App\Models\Order;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Str;
 use Livewire\Livewire;
 use Tests\TestCase;
 
