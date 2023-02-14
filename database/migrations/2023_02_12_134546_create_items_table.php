@@ -12,6 +12,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->decimal('value');
+            $table->integer('quantity')->nullable();
+            $table->integer('warning')->nullable();
             $table->enum('type', ['product', 'service']);
             $table->foreignId('company_id')->constrained();
             $table->timestamps();

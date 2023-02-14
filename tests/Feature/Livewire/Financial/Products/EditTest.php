@@ -39,6 +39,7 @@ class EditTest extends TestCase
 
         Livewire::test(Edit::class, [$product->id])
             ->set('product.name', 'product name')
+            ->set('product.warning', 10)
             ->set('value', 12.00)
             ->call('store')
             ->assertSessionHas('message', 'Atualizado com sucesso!')
@@ -66,10 +67,12 @@ class EditTest extends TestCase
 
         Livewire::test(Edit::class, [$product->id])
             ->set('product.name', '')
+            ->set('product.warning', '')
             ->set('value', '')
             ->call('store')
             ->assertHasErrors([
                 'product.name' => 'required',
+                'product.warning' => 'required',
                 'value' => 'required',
             ]);
     }

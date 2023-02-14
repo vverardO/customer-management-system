@@ -33,7 +33,9 @@ class Index extends Component
                     $query->orWhere('value', 'like', '%'.$this->search.'%');
                 });
             }
-        })->relatedToUserCompany()->orderBy('name')->get();
+        })->orderBy('quantity')
+            ->relatedToUserCompany()
+            ->get();
 
         return view('livewire.financial.products.index', compact(['products']));
     }

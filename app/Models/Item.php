@@ -20,6 +20,8 @@ class Item extends Model
     protected $fillable = [
         'name',
         'value',
+        'quantity',
+        'warning',
         'type',
         'company_id',
     ];

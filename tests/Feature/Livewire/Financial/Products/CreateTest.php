@@ -31,6 +31,7 @@ class CreateTest extends TestCase
 
         Livewire::test(Create::class)
             ->set('product.name', 'product name')
+            ->set('product.warning', 10)
             ->set('value', 12.00)
             ->call('store')
             ->assertSessionHas('message', 'Cadastrado com sucesso!')
@@ -52,10 +53,12 @@ class CreateTest extends TestCase
 
         Livewire::test(Create::class)
             ->set('product.name', '')
+            ->set('product.warning', '')
             ->set('value', '')
             ->call('store')
             ->assertHasErrors([
                 'product.name' => 'required',
+                'product.warning' => 'required',
                 'value' => 'required',
             ]);
     }

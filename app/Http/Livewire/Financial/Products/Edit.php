@@ -14,12 +14,16 @@ class Edit extends Component
 
     protected $rules = [
         'product.name' => ['required', 'min:3'],
+        'product.quantity' => ['sometimes'],
+        'product.warning' => ['required', 'integer'],
         'value' => ['required'],
     ];
 
     protected $messages = [
         'product.name.required' => 'Insira o nome',
         'product.name.min' => 'Mínimo 3 letras',
+        'product.warning.required' => 'Insira a quantidade de aviso',
+        'product.warning.integer' => 'Necessário informar um número',
         'value.required' => 'Insira o valor',
     ];
 

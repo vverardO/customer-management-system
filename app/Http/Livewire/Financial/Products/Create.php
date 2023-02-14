@@ -14,12 +14,15 @@ class Create extends Component
 
     protected $rules = [
         'product.name' => ['required', 'min:3'],
+        'product.warning' => ['required', 'integer'],
         'value' => ['required'],
     ];
 
     protected $messages = [
         'product.name.required' => 'Insira o nome',
         'product.name.min' => 'Mínimo 3 letras',
+        'product.warning.required' => 'Insira a quantidade de aviso',
+        'product.warning.integer' => 'Necessário informar um número',
         'value.required' => 'Insira o valor',
     ];
 
@@ -29,6 +32,7 @@ class Create extends Component
 
         $this->product->company_id = auth()->user()->company_id;
         $this->product->type = ItemType::Product;
+        $this->product->quantity = 0;
         $this->product->value = str_replace(',', '.', str_replace('.', '', $this->value));
 
         $this->product->save();

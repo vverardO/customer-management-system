@@ -29,15 +29,17 @@
                         <tr>
                             <th>Nome</th>
                             <th>Valor</th>
+                            <th>Quantidade</th>
                             <th style="width: 150px;">Data Criação</th>
                             <th style="width: 100px;">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($products as $product)
-                        <tr>
+                        <tr @if($product->quantity <= $product->warning) class="table-danger" @endif>
                             <td>{{$product->name}}</td>
                             <td>{{$product->value_formatted}}</td>
+                            <td>{{$product->quantity}}</td>
                             <td>{{$product->created_at->format('d/m/Y H:i:s')}}</td>
                             <td>
                                 <ul class="list-inline mb-0">

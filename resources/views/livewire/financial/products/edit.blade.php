@@ -17,10 +17,32 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
+                    <label class="col-md-2 col-form-label @error('product.warning') is-invalid @enderror">Quandidade para aviso</label>
+                    <div class="col-md-10">
+                        <input class="form-control @error('product.warning') is-invalid @enderror" placeholder="10" wire:model="product.warning">
+                        @error('product.warning')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="mb-3 row">
                     <label class="col-md-2 col-form-label @error('value') is-invalid @enderror">Valor (R$)</label>
                     <div class="col-md-10">
                         <input id="currency-mask" class="form-control @error('value') is-invalid @enderror" placeholder="1,00" wire:model="value">
                         @error('value')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-md-2 col-form-label">Quantidade</label>
+                    <div class="col-md-10">
+                        <input class="form-control" readonly placeholder="30" wire:model="product.quantity">
+                        @error('total_value')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>

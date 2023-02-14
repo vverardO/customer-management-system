@@ -77,7 +77,7 @@ class DatabaseSeeder extends Seeder
             ->for($company)
             ->create();
 
-        $quantity = random_int(1, 5);
+        $quantity = random_int(1, 15);
         $company
             ->products()
             ->inRandomOrder()
@@ -91,7 +91,7 @@ class DatabaseSeeder extends Seeder
                     ->create();
             });
 
-        $quantity = random_int(1, 5);
+        $quantity = random_int(1, 15);
         $company
             ->products()
             ->inRandomOrder()
