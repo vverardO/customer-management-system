@@ -59,6 +59,7 @@ class DatabaseSeeder extends Seeder
 
                         $quantity = random_int(1, 5);
                         Item::isProduct()
+                            ->hasStock()
                             ->inRandomOrder()
                             ->take($quantity)
                             ->get()

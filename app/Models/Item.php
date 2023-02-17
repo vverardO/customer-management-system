@@ -46,6 +46,11 @@ class Item extends Model
         $query->where('company_id', auth()->user()->company_id);
     }
 
+    public function scopeHasStock(Builder $query): void
+    {
+        $query->where('quantity', '>', 0);
+    }
+
     public function scopeIsService(Builder $query): void
     {
         $query->where('type', ItemType::Service);

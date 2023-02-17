@@ -121,7 +121,11 @@ class Create extends Component
                     $query->where('name', 'like', '%'.$this->search.'%');
                     $query->orWhere('value', $this->search);
                 });
-            })->relatedToUserCompany()->orderByDesc('created_at')->limit(5)->get();
+            })->relatedToUserCompany()
+                ->hasStock()
+                ->orderByDesc('created_at')
+                ->limit(5)
+                ->get();
         }
 
         if ($this->order->customer_id) {
