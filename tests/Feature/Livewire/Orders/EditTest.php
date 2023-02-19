@@ -127,6 +127,7 @@ class EditTest extends TestCase
 
         $product = Item::factory([
             'type' => ItemType::Product,
+            'quantity' => 100,
         ])->for($user->company)->create();
 
         $order = Order::factory()->for($user->company)->create();

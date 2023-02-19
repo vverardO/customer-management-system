@@ -111,6 +111,7 @@ class CreateTest extends TestCase
 
         $product = Item::factory([
             'type' => ItemType::Product,
+            'quantity' => 100,
         ])->for($user->company)->create();
 
         Livewire::test(Create::class)

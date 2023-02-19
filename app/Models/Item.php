@@ -48,7 +48,10 @@ class Item extends Model
 
     public function scopeHasStock(Builder $query): void
     {
-        $query->where('quantity', '>', 0);
+        $query->where(function (Builder $builder) {
+            $builder->where('type', 'product');
+            $builder->where('quantity', '>', 0);
+        })->orWhere('type', 'service');
     }
 
     public function scopeIsService(Builder $query): void
