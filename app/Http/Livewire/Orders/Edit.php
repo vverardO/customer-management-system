@@ -49,6 +49,10 @@ class Edit extends Component
             $this->order->total_value = $this->total_value;
         }
 
+        if ("" == $this->order->address_id) {
+            $this->order->address_id = null;
+        }
+
         $this->order->save();
 
         try {

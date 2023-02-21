@@ -84,6 +84,13 @@ class Order extends Model
         );
     }
 
+    protected function hasAttendance(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->address ? 'Sim' : 'Não',
+        );
+    }
+
     protected function totalValueFormatted(): Attribute
     {
         return Attribute::make(
